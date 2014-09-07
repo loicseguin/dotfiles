@@ -11,11 +11,14 @@ regular basis:
 - matplotlib
 - zsh
 - latexmk
+- gem
+
+## Bootstraping
 
 To get up and running quickly on a new machine, issue the following command
 
 ```bash
-    curl -fsSL https://raw.github.com/loicseguin/dotfiles/master/bootstrap.sh | bash
+curl -fsSL https://raw.github.com/loicseguin/dotfiles/master/bootstrap.sh | bash
 ```
 
 The boostrap script will take the following actions (without asking for you
@@ -25,3 +28,13 @@ permission — use with caution!):
 - add appropriate symlinks and delete preexisting directories
 - change the default shell to `zsh`
 - install a bunch of software
+
+## Installed software
+
+- git
+- homebrew
+- mutt
+- msmtp
+- vim
+- zsh
+- tmux
