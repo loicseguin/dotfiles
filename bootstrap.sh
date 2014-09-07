@@ -13,27 +13,31 @@ if [ -d $DOTDIR ]; then
 fi
 
 # Try to determine the package manager to use for installing software.
-if [ "$(uname)" == "Darwin" ]; then
-    # Use homebrew on OS X
-    hash brew 2>/dev/null || { ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)" }
-    INSTALL="brew install"
-    VIM=macvim
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-    # Try a couple of installers for the most well known distributions
-    if hash apt-get 2>/dev/null; then
-        INSTALL="sudo apt-get install"
-    elif hash yum 2>/dev/null; then
-        INSTALL="sudo yum install"
-    elif hash pacman 2>/dev/null; then
-        INSTALL="sudo pacman -S"
-    elif hash zypper 2>/dev/null; then
-        INSTALL="sudo zypper install"
-    fi
-    VIM=vim-gtk
-else
-    echo "You're using some weird OS, I can't help you with it."
-    exit 1
-fi
+case "$OSTYPE" in
+    darwin*)
+        # Use homebrew on OS X
+        hash brew 2>/dev/null || { ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)" }
+        INSTALL="brew install"
+        VIM=macvim
+        ;;
+    linux*)
+        # Try a couple of installers for the most well known distributions
+        if hash apt-get 2>/dev/null; then
+            INSTALL="sudo apt-get install"
+        elif hash yum 2>/dev/null; then
+            INSTALL="sudo yum install"
+        elif hash pacman 2>/dev/null; then
+            INSTALL="sudo pacman -S"
+        elif hash zypper 2>/dev/null; then
+            INSTALL="sudo zypper install"
+        fi
+        VIM=vim-gtk
+        ;;
+    *)
+        echo "You're using some weird OS, I can't help you with it."
+        exit 1
+        ;;
+esac
 
 check_install() {
     # If a command is in the PATH, do nothing. Otherwise, attempt install.
