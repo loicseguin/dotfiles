@@ -1,0 +1,11 @@
+.DS_Store
+matplotlib/fontList.py3k.cache
+matplotlib/fontList.cache
+matplotlib/tex.cache
+mutt/cache
+mutt/certificates
+*.pyc
+vim/tmp/*
+vim/bundle/*
+vim/.netrwhist
+

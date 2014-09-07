@@ -1,0 +1,235 @@
+" Break backward compatibility with vi
+set nocompatible
+
+" Avoid some security issues with modelines
+set nomodeline
+
+" Use Vundle for package management
+filetype off
+set rtp+=$HOME/.vim/bundle/vundle/
+call vundle#rc()
+
+" List of bundles to use
+Bundle 'gmarik/vundle'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-surround'
+Bundle 'LaTeX-Box-Team/LaTeX-Box'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'jamessan/vim-gnupg'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'kien/ctrlp.vim'
+Bundle 'ervandew/supertab'
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
+Bundle 'honza/vim-snippets'
+Bundle 'garbas/vim-snipmate'
+Bundle 'jnurmine/Zenburn'
+Bundle 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
+Bundle 'chriskempson/base16-vim'
+Bundle 'ivanov/vim-ipython'
+Bundle 'JuliaLang/julia-vim'
+
+" Syntax highlighting, indentation and automatic file type recognition
+filetype plugin indent on
+syntax enable
+
+" General
+"""""""""
+set hidden         " hide file instead of closing it
+set autoread       " reread file automatically if modified outside of Vim
+set autowrite      " write file automatically upon some actions (see help)
+set history=1000   " longer history
+"set spell         " spell checking
+set encoding=utf-8 " default encoding
+set vb t_vb=       " Disable the bell
+
+" Vim UI
+""""""""
+if has('statusline')
+    " Status line detail:
+    " -------------------
+    "
+    " %f    file name
+    " %F    file path
+    " %y    file type between braces (if defined)
+    "
+    " %{v:servername}   server/session name (gvim only)
+    "
+    " %<    collapse to the left if window is to small
+    "
+    " %( %) display contents only if not empty
+    "
+    " %1*   use color preset User1 from this point on (use %0* to reset)
+    "
+    " %([%R%M]%)   read-only, modified and modifiable flags between braces
+    "
+    " %=     right-align following items
+    "
+    " %{&fileencoding}  displays encoding (like utf8)
+    " %{&fileformat}    displays file format (unix, dos, etc..)
+    " %{&filetype}      displays file type (vim, python, etc..)
+    "
+    " #%n   buffer number
+    " %l/%L line number, total number of lines
+    " %p%   percentage of file
+    " %c%V  column number, absolute column number
+    " &modified         whether or not file was modified
+    "
+    set laststatus=2
+    " Broken down into easily includeable segments
+    set statusline=%<%f\                     " Filename
+    set statusline+=%w%h%m%r                 " Options
+    set statusline+=%{fugitive#statusline()} " Git Hotness
+    set statusline+=\ [%{&ff}%(\|%{(&fenc!=''?&fenc:&enc)}%)%(\|%{&filetype}%)] " Filetype
+    set statusline+=\ [%{getcwd()}]          " Current dir
+    set statusline+=%=%-5.(%l,%c%V%)\ %p%%   " Right aligned file nav info
+endif
+
+set ruler                       " Show the ruler
+set backspace=indent,eol,start  " Backspace for dummies
+set showmatch                   " highlight matching parentheses
+set wildmenu                    " show command auto-completion matches in status line
+set wildmode=list:longest,full  " command <Tab> completion, list matches, then longest common part, then all.
+set scrolloff=5    " minimum number of lines above or below cursor
+set scrolljump=5   " lines to scroll when cursor leaves screen
+set number
+set cursorline
+set colorcolumn=80
+
+set guioptions-=rL " Disable scrollbars
+set guioptions-=T  " Disable menu bar
+
+" Font for Mac, Windows and Linux
+if has("mac")
+    set guifont=Menlo:h14
+elseif has("gui_win32")
+    set guifont=Consolas:h11:cANSI
+else
+    set guifont=DejaVu\ Sans\ Mono\ 10
+endif
+
+" Colors
+if has("gui")
+    set background=dark
+    colorscheme base16-tomorrow
+else
+    colorscheme Tomorrow-Night-Eighties
+endif
+
+" Show hidden characters
+""""""""""""""""""""""""
+"set list
+set listchars=tab:▸\ ,eol:¬
+
+" Persistent undo
+"""""""""""""""""
+if has('persistent_undo')
+    set undofile
+    set undolevels=1000
+    set undoreload=10000
+endif
+
+" Backups
+"""""""""
+set backup                       " enable backups
+set noswapfile
+set undodir=$HOME/.vim/tmp/undo//
+set backupdir=$HOME/.vim/tmp/backup//
+
+" Search options
+""""""""""""""""
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+
+" Formatting
+""""""""""""
+set nowrap         " do not wrap long lines
+set autoindent     " indent at the same level of the previous line
+set tabstop=4      " use four spaces for tabs
+set shiftwidth=4
+set softtabstop=4
+set expandtab      " spaces, not tabs
+set textwidth=79   " wrap lines after 79 characters
+
+" Key mappings
+""""""""""""""
+" Use comma instead of \ for leader
+let mapleader=","
+let maplocalleader="\\"
+
+" To normal mode with jk
+inoremap jk <Esc>
+
+" One less key stroke to enter commands
+nnoremap ; :
+
+" Toggle search highlighting
+nnoremap <silent> <leader><space> :set invhlsearch<CR>
+
+" Disable arrows in insert mode
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+
+" Yank to end of line with Y
+nnoremap Y y$
+
+" Move between screen lines, not real lines
+nnoremap j gj
+nnoremap k gk
+
+" Visual shifting (does not exit Visual mode)
+vnoremap < <gv
+vnoremap > >gv
+
+" Insert new lines without entering insert mode
+nnoremap <S-Enter> O<Esc>
+nnoremap <Enter> o<Esc>
+
+" Select word easily
+nnoremap <space> viw
+vnoremap <space> <ESC>
+
+" Move between matching brackets with tab in normal mode
+nnoremap <tab> <s-%>
+
+" Open file in Marked
+nnoremap <leader>m :silent !open -a Marked.app '%:p'<CR>
+
+" Quickly edit/reload vimrc file
+nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
+nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
+
+" Toggle numbering and fold column on and off.
+nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
+
+" Press <F3> to delete all trailing spaces in a file.
+nnoremap <silent> <F3> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+
+" Toggle spell checking
+nnoremap <F1> :set spell!<CR>
+
+" Fugitive plugin keymaps
+nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>gc :Gcommit<CR>
+nnoremap <silent> <leader>gd :Gdiff<CR>
+nnoremap <silent> <leader>gl :Glog<CR>
+nnoremap <silent> <leader>gp :Git push<CR>
+
+" Completion
+""""""""""""
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+let g:SuperTabDefaultCompletionType = "context"
+
+" Others
+""""""""
+" Proper filetype for LaTeX
+let g:tex_flavor = "latex"
