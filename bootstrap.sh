@@ -18,7 +18,7 @@ if [ "$(uname)" == "Darwin" ]; then
     hash brew 2>/dev/null || { ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)" }
     INSTALL="brew install"
     VIM=macvim
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux"]; then
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     # Try a couple of installers for the most well known distributions
     if hash apt-get 2>/dev/null; then
         INSTALL="sudo apt-get install"
