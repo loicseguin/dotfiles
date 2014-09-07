@@ -15,7 +15,7 @@ fi
 # Try to determine the package manager to use for installing software.
 if [[ "$OSTYPE" == darwin* ]]; then
     # Use homebrew on OS X
-    hash brew 2>/dev/null || { ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)" }
+    hash brew 2>/dev/null || { ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"; }
     INSTALL="brew install"
     VIM=macvim
 elif [[ "$OSTYPE" == "linux-gnu" ]]; then
@@ -37,7 +37,7 @@ fi
 
 check_install() {
     # If a command is in the PATH, do nothing. Otherwise, attempt install.
-    hash $1 2>/dev/null || { $INSTALL $1 }
+    hash $1 2>/dev/null || { $INSTALL $1; }
 }
 
 # Version control
