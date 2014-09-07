@@ -21,7 +21,7 @@ To get up and running quickly on a new machine, issue the following command
 curl -fsSL https://raw.github.com/loicseguin/dotfiles/master/bootstrap.sh | bash
 ```
 
-The boostrap script will take the following actions (without asking for you
+The boostrap script will take the following actions (without asking for your
 permission — use with caution!):
 
 - clone the github repository into `~/dotfiles`
