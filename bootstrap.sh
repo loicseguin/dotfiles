@@ -6,6 +6,8 @@
 
 DOTDIR=$HOME/dotfiles
 
+set +e
+
 # Are dotfiles already in place? If so, we are done.
 if [ -d $DOTDIR ]; then
     echo "dotfiles seem to be already installed"
