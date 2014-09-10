@@ -59,6 +59,7 @@ ln -Ffs $DOTDIR/mutt/offlineimaprc $HOME/.offlineimaprc
 ln -Ffs $DOTDIR/mutt $HOME/.mutt
 ln -Ffs $DOTDIR/mutt/msmtprc $HOME/.msmtprc
 mkdir -p $DOTDIR/mutt/cache/bodies
+mkdir -p $DOTDIR/mutt/temp
 # Install mail software
 check_install mutt
 check_install msmtp
