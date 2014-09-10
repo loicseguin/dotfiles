@@ -6,9 +6,6 @@
 
 DOTDIR=$HOME/dotfiles
 
-set +e
-set +o pipefail
-
 # Are dotfiles already in place? If so, we are done.
 if [ -d $DOTDIR ]; then
     echo "dotfiles seem to be already installed"
@@ -75,7 +72,7 @@ mkdir -p $DOTDIR/vim/tmp/undo
 check_install $VIM
 # Get all plugins
 git clone https://github.com/gmarik/Vundle.vim.git $DOTDIR/vim/bundle/Vundle.vim
-vim +BundleInstall +q +q
+</dev/tty vim +BundleInstall +q +q
 
 # Matplotlib
 mkdir -p $HOME/.matplotlib
