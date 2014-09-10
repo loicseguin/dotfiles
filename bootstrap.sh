@@ -7,6 +7,7 @@
 DOTDIR=$HOME/dotfiles
 
 set +e
+set +o pipefail
 
 # Are dotfiles already in place? If so, we are done.
 if [ -d $DOTDIR ]; then
