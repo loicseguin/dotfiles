@@ -15,13 +15,20 @@ regular basis:
 
 ## Bootstraping
 
-To get up and running quickly on a new machine, issue the following command
+To get up and running quickly on a new machine, download the `bootstrap.sh`
+script
 
 ```bash
-curl -fsSL https://raw.github.com/loicseguin/dotfiles/master/bootstrap.sh | bash
+curl -fsSL https://raw.github.com/loicseguin/dotfiles/master/bootstrap.sh
 ```
 
-The boostrap script will take the following actions (without asking for your
+and execute it
+
+```bash
+bash bootstrap.sh
+```
+
+The bootstrap script will take the following actions (without asking for your
 permission — use with caution!):
 
 - clone the github repository into `~/dotfiles`
