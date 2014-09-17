@@ -87,6 +87,7 @@ ln -Ffs $DOTDIR/zsh/zshrc $HOME/.zshrc
 ln -Ffs $DOTDIR/zsh $HOME/.zsh
 check_install zsh
 chsh -s `command -v zsh`
+touch $HOME/.hushlogin  # Silence! (no "Last login on ..." message)
 
 # Tmux
 ln -Ffs $DOTDIR/tmux.conf $HOME/.tmux.conf
