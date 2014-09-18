@@ -193,7 +193,7 @@ alias astro="cd ~/Dropbox/Courses/cea-astro/"
 alias m="mutt"
 
 # Editors
-v() { mvim "$@" }
+v() { mvim "$@"; }
 
 # ResearchNote: blogue
 alias bnc="researchnote --config ~/.blognoterc create"
@@ -204,12 +204,12 @@ alias bne="researchnote --config ~/.blognoterc edit"
 alias bu="brew update"
 alias bo="brew outdated"
 alias bug="brew upgrade"
-b() { brew "$@" }
-bi() { brew install "$@" }
+b() { brew "$@"; }
+bi() { brew install "$@"; }
 
 # Agenda
 export AGENDAFILE=$HOME/agenda.txt
-a() { agenda "$@" $AGENDAFILE }
+a() { agenda "$@" $AGENDAFILE; }
 
 # IPython Notebook
 alias ipn="ipython notebook"
