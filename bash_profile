@@ -189,7 +189,7 @@ alias hgd="hg diff"
 alias m="mutt"
 
 # Editors
-v() { mvim "$@" }
+v() { mvim "$@"; }
 
 # ResearchNote: blogue
 alias bnc="researchnote --config ~/.blognotesrc create"
@@ -202,12 +202,12 @@ alias bne="researchnote --config ~/.blognotesrc edit"
 alias bu="brew update"
 alias bo="brew outdated"
 alias bug="brew upgrade"
-b() { brew "$@" }
-bi() { brew install "$@" }
+b() { brew "$@"; }
+bi() { brew install "$@"; }
 
 # Agenda
 export AGENDAFILE=$HOME/agenda.txt
-a() { agenda "$@" $AGENDAFILE }
+a() { agenda "$@" $AGENDAFILE; }
 
 # IPython Notebook
 alias ipn="ipython notebook"
