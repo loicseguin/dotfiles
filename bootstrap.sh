@@ -2,7 +2,8 @@
 
 # Install dotfiles along with a bunch of really useful software.
 # Run with
-#   curl -fsSL https://raw.github.com/loicseguin/dotfiles/master/bootstrap.sh | bash
+#   curl -fsSL https://raw.github.com/loicseguin/dotfiles/master/bootstrap.sh
+#   bash bootstrap.sh
 
 DOTDIR=$HOME/dotfiles
 
@@ -89,10 +90,5 @@ check_install zsh
 chsh -s `command -v zsh`
 touch $HOME/.hushlogin  # Silence! (no "Last login on ..." message)
 
-# Tmux
-ln -Ffs $DOTDIR/tmux.conf $HOME/.tmux.conf
-check_install tmux
-
 # Miscellaneous
-ln -Ffs $DOTDIR/blognoterc $HOME/.blognoterc
 ln -Ffs $DOTDIR/gemrc $HOME/.gemrc
