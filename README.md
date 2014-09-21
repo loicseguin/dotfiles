@@ -6,7 +6,6 @@ regular basis:
 - git
 - mercurial
 - vim
-- tmux
 - mutt
 - matplotlib
 - zsh
@@ -19,7 +18,7 @@ To get up and running quickly on a new machine, download the `bootstrap.sh`
 script
 
 ```bash
-curl -fsSL https://raw.github.com/loicseguin/dotfiles/master/bootstrap.sh
+curl -LO https://raw.github.com/loicseguin/dotfiles/master/bootstrap.sh
 ```
 
 and execute it
@@ -44,4 +43,3 @@ permission — use with caution!):
 - msmtp
 - vim
 - zsh
-- tmux
