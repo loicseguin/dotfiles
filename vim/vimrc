@@ -28,6 +28,7 @@ Bundle 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
 Bundle 'chriskempson/base16-vim'
 Bundle 'ivanov/vim-ipython'
 Bundle 'JuliaLang/julia-vim'
+Bundle 'godlygeek/tabular'
 call vundle#end()
 
 " Syntax highlighting, indentation and automatic file type recognition
@@ -112,7 +113,7 @@ endif
 " Colors
 if has("gui_running")
     set background=dark
-    colorscheme base16-tomorrow
+    colorscheme base16-monokai
 else
     colorscheme Tomorrow-Night-Eighties
 endif
@@ -234,3 +235,6 @@ let g:SuperTabDefaultCompletionType = "context"
 """"""""
 " Proper filetype for LaTeX
 let g:tex_flavor = "latex"
+
+" Recognize .md as markdown files
+autocmd BufNewFile,BufRead *.md set ft=markdown
