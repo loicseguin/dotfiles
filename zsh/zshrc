@@ -5,6 +5,9 @@ autoload -U compinit colors
 compinit
 colors
 
+# Don't screw up directory names
+unsetopt auto_name_dirs
+
 # Add Git and Mercurial status to prompt
 autoload -Uz vcs_info
 setopt prompt_subst
@@ -45,7 +48,6 @@ zstyle ':completion::complete:*' cache-path $ZSH/cache/
 ## DIRECTORY NAVIGATION ##
 
 setopt auto_cd    # automatically change to directory without cd
-setopt auto_name_dirs
 setopt auto_pushd        # push directory onto stack
 setopt pushd_ignore_dups # don't put duplicates onto stack
 
