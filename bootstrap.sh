@@ -52,6 +52,7 @@ install_vim() {
             curl -OL https://github.com/b4winckler/macvim/releases/download/snapshot-73/MacVim-snapshot-73-Mavericks.tbz
             tar zxvf MacVim-snapshot-73-Mavericks.tbz
             mv MacVim-snapshot-73/MacVim.app /Applications/MacVim.app
+            mkdir -p $HOME/bin
             mv MacVim-snapshot-73/mvim $HOME/bin/mvim
             ln -s $HOME/bin/mvim $HOME/bin/vim
             ln -s $HOME/bin/mvim $HOME/bin/vimdiff
