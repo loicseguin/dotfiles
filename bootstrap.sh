@@ -62,7 +62,7 @@ install_vim() {
         linux*)
             # Install vim and gvim
             check_install vim
-            check_install gvim
+            check_install vim-gtk
             ;;
         *)
             echo "You're using some weird OS, install vim yourself."
@@ -116,7 +116,7 @@ if [[ ! -d anaconda3 ]]; then
             bash Anaconda3-2.1.0-MacOSX-x86_64.sh
             ;;
         linux*)
-            curl -OL http://repo.continuum.io/anaconda3/Anaconda3-2.1.0-Linux-x86_64.sh
+            wget http://repo.continuum.io/anaconda3/Anaconda3-2.1.0-Linux-x86_64.sh
             bash Anaconda3-2.1.0-Linux-x86_64.sh
             ;;
         *)
