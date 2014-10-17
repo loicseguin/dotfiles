@@ -6,7 +6,6 @@ regular basis:
 - git
 - mercurial
 - vim
-- mutt
 - matplotlib
 - zsh
 - latexmk
@@ -39,7 +38,5 @@ permission — use with caution!):
 
 - git
 - homebrew
-- mutt
-- msmtp
 - vim
 - zsh

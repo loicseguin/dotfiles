@@ -2,7 +2,7 @@
 
 # Install dotfiles along with a bunch of really useful software.
 # Run with
-#   curl -fsSL https://raw.github.com/loicseguin/dotfiles/master/bootstrap.sh
+#   curl -LO https://raw.github.com/loicseguin/dotfiles/master/bootstrap.sh
 #   bash bootstrap.sh
 
 DOTDIR=$HOME/dotfiles
@@ -19,7 +19,6 @@ case $OSTYPE in
         # Use homebrew on OS X
         hash brew 2>/dev/null || { ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"; }
         INSTALL="brew install"
-        VIM=macvim
         ;;
     linux*)
         # Try a couple of installers for the most well known distributions
@@ -32,7 +31,6 @@ case $OSTYPE in
         elif hash zypper 2>/dev/null; then
             INSTALL="sudo zypper install"
         fi
-        VIM=vim-gtk
         ;;
     *)
         echo "You're using some weird OS, I can't help you with it."
@@ -43,6 +41,31 @@ esac
 check_install() {
     # If a command is in the PATH, do nothing. Otherwise, attempt install.
     hash $1 2>/dev/null || { $INSTALL $1; }
+}
+
+install_vim() {
+    case $OSTYPE in
+        darwin*)
+            # Get MacVim snapshot because installing from Homebrew requires
+            # Xcode
+            curl -OL https://github.com/b4winckler/macvim/releases/download/snapshot-73/MacVim-snapshot-73-Mavericks.tbz
+            tar zxvf MacVim-snapshot-73-Mavericks.tbz
+            mv MacVim-snapshot-73/MacVim.app /Applications/MacVim.app
+            mv MacVim-snapshot-73/mvim $HOME/bin/mvim
+            ln -s $HOME/bin/mvim $HOME/bin/vim
+            ln -s $HOME/bin/mvim $HOME/bin/vimdiff
+            ln -s $HOME/bin/mvim $HOME/bin/view
+            rm -rf MacVim-snapshot-73*
+            ;;
+        linux*)
+            # Install vim and gvim
+            check_install vim
+            check_install gvim
+            ;;
+        *)
+            echo "You're using some weird OS, install vim yourself."
+            ;;
+    esac
 }
 
 # Version control
@@ -61,7 +84,7 @@ ln -Ffs $DOTDIR/vim/vimrc $HOME/.vimrc
 mkdir -p $DOTDIR/vim/bundle
 mkdir -p $DOTDIR/vim/tmp/backup
 mkdir -p $DOTDIR/vim/tmp/undo
-check_install $VIM
+install_vim
 # Get all plugins
 git clone https://github.com/gmarik/Vundle.vim.git $DOTDIR/vim/bundle/Vundle.vim
 vim +BundleInstall +q +q
