@@ -116,8 +116,14 @@ export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;32'
 
 # Colorful ls
-export LSCOLORS="Gxfxcxdxbxegedabagacad"
-alias ls='ls -G'
+case $OSTYPE in
+    darwin*)
+        alias ls='ls -G'
+        ;;
+    linux*)
+        alias ls='ls --color'
+        ;;
+esac
 
 ## ALIASES ##
 
