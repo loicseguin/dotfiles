@@ -64,7 +64,7 @@ mkdir -p $DOTDIR/vim/tmp/undo
 check_install $VIM
 # Get all plugins
 git clone https://github.com/gmarik/Vundle.vim.git $DOTDIR/vim/bundle/Vundle.vim
-</dev/tty vim +BundleInstall +q +q
+vim +BundleInstall +q +q
 
 # Matplotlib
 mkdir -p $HOME/.matplotlib
