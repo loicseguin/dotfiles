@@ -16,14 +16,12 @@ Bundle 'tpope/vim-surround'
 Bundle 'LaTeX-Box-Team/LaTeX-Box'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'jamessan/vim-gnupg'
-Bundle 'altercation/vim-colors-solarized'
 Bundle 'kien/ctrlp.vim'
 Bundle 'ervandew/supertab'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
 Bundle 'honza/vim-snippets'
 Bundle 'garbas/vim-snipmate'
-Bundle 'jnurmine/Zenburn'
 Bundle 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
 Bundle 'chriskempson/base16-vim'
 Bundle 'ivanov/vim-ipython'
@@ -116,6 +114,7 @@ if has("gui_running")
     colorscheme base16-monokai
 else
     colorscheme Tomorrow-Night-Eighties
+    set t_Co=256  " I can do 256 colors!
 endif
 
 " Show hidden characters
@@ -135,8 +134,8 @@ endif
 """""""""
 set backup                       " enable backups
 set noswapfile
-set undodir=$HOME/.vim/tmp/undo//
-set backupdir=$HOME/.vim/tmp/backup//
+set undodir=$HOME/.vim/tmp/undo/
+set backupdir=$HOME/.vim/tmp/backup/
 
 " Search options
 """"""""""""""""
