@@ -17,6 +17,7 @@ fi
 case $OSTYPE in
     darwin*)
         # Use homebrew on OS X
+        hash clang 2>/dev/null || xcode-select --install
         hash brew 2>/dev/null || { ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"; }
         INSTALL="brew install"
         ;;
@@ -105,3 +106,20 @@ touch $HOME/.hushlogin  # Silence! (no "Last login on ..." message)
 
 # Miscellaneous
 ln -Ffs $DOTDIR/gemrc $HOME/.gemrc
+
+# Anaconda
+if [[ ! -d anaconda3 ]]; then
+    case $OSTYPE in
+        darwin*)
+            curl -OL http://repo.continuum.io/anaconda3/Anaconda3-2.1.0-MacOSX-x86_64.sh
+            bash Anaconda3-2.1.0-MacOSX-x86_64.sh
+            ;;
+        linux*)
+            curl -OL http://repo.continuum.io/anaconda3/Anaconda3-2.1.0-Linux-x86_64.sh
+            bash Anaconda3-2.1.0-Linux-x86_64.sh
+            ;;
+        *)
+            echo "You're using some weird OS, install Python yourself."
+            ;;
+    esac
+fi
