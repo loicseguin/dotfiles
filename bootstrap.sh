@@ -17,8 +17,7 @@ fi
 case $OSTYPE in
     darwin*)
         # Use homebrew on OS X
-        hash clang 2>/dev/null || xcode-select --install
-        hash brew 2>/dev/null || { ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"; }
+        hash brew 2>/dev/null || { ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"; }
         INSTALL="brew install"
         ;;
     linux*)
@@ -49,15 +48,17 @@ install_vim() {
         darwin*)
             # Get MacVim snapshot because installing from Homebrew requires
             # Xcode
-            curl -OL https://github.com/b4winckler/macvim/releases/download/snapshot-73/MacVim-snapshot-73-Mavericks.tbz
-            tar zxvf MacVim-snapshot-73-Mavericks.tbz
-            mv MacVim-snapshot-73/MacVim.app /Applications/MacVim.app
-            mkdir -p $HOME/bin
-            mv MacVim-snapshot-73/mvim $HOME/bin/mvim
-            ln -s $HOME/bin/mvim $HOME/bin/vim
-            ln -s $HOME/bin/mvim $HOME/bin/vimdiff
-            ln -s $HOME/bin/mvim $HOME/bin/view
-            rm -rf MacVim-snapshot-73*
+            if [[ ! -f $HOME/bin/mvim ]]; then
+                curl -OL https://github.com/b4winckler/macvim/releases/download/snapshot-73/MacVim-snapshot-73-Mavericks.tbz
+                tar zxvf MacVim-snapshot-73-Mavericks.tbz
+                mv MacVim-snapshot-73/MacVim.app /Applications/MacVim.app
+                mkdir -p $HOME/bin
+                mv MacVim-snapshot-73/mvim $HOME/bin/mvim
+                ln -s $HOME/bin/mvim $HOME/bin/vim
+                ln -s $HOME/bin/mvim $HOME/bin/vimdiff
+                ln -s $HOME/bin/mvim $HOME/bin/view
+                rm -rf MacVim-snapshot-73*
+            fi
             ;;
         linux*)
             # Install vim and gvim
@@ -70,15 +71,16 @@ install_vim() {
     esac
 }
 
-# Version control
-ln -Ffs $DOTDIR/hgrc $HOME/.hgrc
-ln -Ffs $DOTDIR/hgignore $HOME/.hgignore
-ln -Ffs $DOTDIR/gitconfig $HOME/.gitconfig
 # Make sure git is installed
 check_install git
 
 # Clone the repository
 git clone https://github.com/loicseguin/dotfiles.git $DOTDIR
+
+# Version control
+ln -Ffs $DOTDIR/hgrc $HOME/.hgrc
+ln -Ffs $DOTDIR/hgignore $HOME/.hgignore
+ln -Ffs $DOTDIR/gitconfig $HOME/.gitconfig
 
 # Vim
 ln -Ffs $DOTDIR/vim $HOME/.vim
