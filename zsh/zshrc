@@ -197,12 +197,9 @@ alias history='fc -l 1'
 
 # quickly reach directories
 alias dotf="cd ~/dotfiles/"
-alias mec="cd ~/Dropbox/Courses/nya-mecanique/"
-alias nyc="cd ~/Dropbox/Courses/nyc-ondes/"
-alias astro="cd ~/Dropbox/Courses/cea-astro/"
-
-# Mutt
-alias m="mutt"
+alias mec="cd ~/Courses/nya-mecanique/"
+alias nyc="cd ~/Courses/nyc-ondes/"
+alias astro="cd ~/Courses/cea-astro/"
 
 # Editors
 v() { mvim "$@"; }

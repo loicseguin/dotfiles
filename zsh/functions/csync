@@ -1,6 +1,6 @@
 csync () {
-    COURSESDIR="$HOME/Dropbox/Courses"
-    EXCLUDES="$HOME/Dropbox/Courses/nya-mecanique/.rsync_excludes"
+    COURSESDIR="$HOME/Courses"
+    EXCLUDES="$HOME/Courses/nya-mecanique/.rsync_excludes"
     USBDIR="/Volumes/KINGSTON2GB/"
     if (( $# == 2)); then
         destdir="$2"
