@@ -27,6 +27,7 @@ Bundle 'chriskempson/base16-vim'
 Bundle 'ivanov/vim-ipython'
 Bundle 'JuliaLang/julia-vim'
 Bundle 'godlygeek/tabular'
+Bundle 'tomasr/molokai'
 call vundle#end()
 
 " Syntax highlighting, indentation and automatic file type recognition
@@ -81,7 +82,7 @@ if has('statusline')
     set statusline+=%w%h%m%r                 " Options
     set statusline+=%{fugitive#statusline()} " Git Hotness
     set statusline+=\ [%{&ff}%(\|%{(&fenc!=''?&fenc:&enc)}%)%(\|%{&filetype}%)] " Filetype
-    set statusline+=\ [%{getcwd()}]          " Current dir
+    "set statusline+=\ [%{getcwd()}]          " Current dir
     set statusline+=%=%-5.(%l,%c%V%)\ %p%%   " Right aligned file nav info
 endif
 
@@ -111,7 +112,8 @@ endif
 " Colors
 if has("gui_running")
     set background=dark
-    colorscheme base16-monokai
+    let g:molokai_original = 1
+    colorscheme molokai
 else
     colorscheme Tomorrow-Night-Eighties
     set t_Co=256  " I can do 256 colors!
@@ -237,3 +239,6 @@ let g:tex_flavor = "latex"
 
 " Recognize .md as markdown files
 autocmd BufNewFile,BufRead *.md set ft=markdown
+
+" Use free format Fortran (yay 21st century)
+let fortran_free_source=1

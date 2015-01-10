@@ -230,3 +230,9 @@ autoload -U ${fpath[1]}/*(:t)
 
 # Print weekly schedule
 a
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+export XUGGLE_HOME="/usr/local/xuggler"
+
+export TRACKER_HOME="/usr/local/tracker"
