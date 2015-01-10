@@ -93,6 +93,10 @@ install_vim
 git clone https://github.com/gmarik/Vundle.vim.git $DOTDIR/vim/bundle/Vundle.vim
 vim +BundleInstall +q +q
 
+# Emacs
+mkdir -p $HOME/.emacs.d
+ln -Ffs $DOTDIR/init.el $HOME/.emacs.d/init.el
+
 # Matplotlib
 mkdir -p $HOME/.matplotlib
 ln -Ffs $DOTDIR/matplotlibrc $HOME/.matplotlibrc
