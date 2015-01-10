@@ -118,11 +118,11 @@ ln -Ffs $DOTDIR/gemrc $HOME/.gemrc
 if [[ ! -d anaconda3 ]]; then
     case $OSTYPE in
         darwin*)
-            curl -OL http://repo.continuum.io/anaconda3/Anaconda3-2.1.0-MacOSX-x86_64.sh
+            curl -OL http://repo.continuum.io/miniconda/Miniconda3-3.7.0-MacOSX-x86_64.sh
             bash Anaconda3-2.1.0-MacOSX-x86_64.sh
             ;;
         linux*)
-            wget http://repo.continuum.io/anaconda3/Anaconda3-2.1.0-Linux-x86_64.sh
+            wget http://repo.continuum.io/miniconda/Miniconda3-3.7.0-Linux-x86_64.sh
             bash Anaconda3-2.1.0-Linux-x86_64.sh
             ;;
         *)
