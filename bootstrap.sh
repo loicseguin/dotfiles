@@ -119,11 +119,11 @@ if [[ ! -d anaconda3 ]]; then
     case $OSTYPE in
         darwin*)
             curl -OL http://repo.continuum.io/miniconda/Miniconda3-3.7.0-MacOSX-x86_64.sh
-            bash Anaconda3-2.1.0-MacOSX-x86_64.sh
+            bash Miniconda3-3.7.0-MacOSX-x86_64.sh
             ;;
         linux*)
             wget http://repo.continuum.io/miniconda/Miniconda3-3.7.0-Linux-x86_64.sh
-            bash Anaconda3-2.1.0-Linux-x86_64.sh
+            bash Miniconda3-3.7.0-Linux-x86_64.sh
             ;;
         *)
             echo "You're using some weird OS, install Python yourself."
