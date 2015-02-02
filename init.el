@@ -13,11 +13,14 @@
 
 (setq package-archive-enable-alist '(("melpa" magit monokai-theme)))
 
-(defvar my-packages '(magit
+(defvar my-packages '(deft
+                      magit
                       auctex
                       markdown-mode
                       zenburn-theme
-                      monokai-theme)
+                      monokai-theme
+                      evil
+                      key-chord)
   "Default packages")
 
 (dolist (pkg my-packages)
@@ -103,6 +106,20 @@
 ;; Load-theme
 (load-theme 'monokai t)
 
+;; Deft for note taking
+(require 'deft)
+(setq deft-extension "md"
+      deft-directory "~/Notebook"
+      deft-text-mode 'markdown-mode
+      deft-use-filename-as-title t)
+(global-set-key [f8] 'deft)
+
+;; Evil mode (yay!)
+(require 'key-chord)
+(key-chord-mode 1)
+(require 'evil)
+(evil-mode 1)
+(key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -111,7 +128,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("64581032564feda2b5f2cf389018b4b9906d98293d84d84142d90d7986032d33" "9a9e75c15d4017c81a2fe7f83af304ff52acfadd7dde3cb57595919ef2e8d736" "dd4db38519d2ad7eb9e2f30bc03fba61a7af49a185edfd44e020aa5345e3dca7" default))))
+    ("9dae95cdbed1505d45322ef8b5aa90ccb6cb59e0ff26fef0b8f411dfc416c552" "64581032564feda2b5f2cf389018b4b9906d98293d84d84142d90d7986032d33" "9a9e75c15d4017c81a2fe7f83af304ff52acfadd7dde3cb57595919ef2e8d736" "dd4db38519d2ad7eb9e2f30bc03fba61a7af49a185edfd44e020aa5345e3dca7" default))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
