@@ -4,38 +4,42 @@ set nocompatible
 " Avoid some security issues with modelines
 set nomodeline
 
-" Use Vundle for package management
+" Vundle package management {{{
 filetype off
 set rtp+=$HOME/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " List of bundles to use
-Bundle 'gmarik/vundle'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-surround'
-Bundle 'LaTeX-Box-Team/LaTeX-Box'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'jamessan/vim-gnupg'
-Bundle 'kien/ctrlp.vim'
-Bundle 'ervandew/supertab'
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-Bundle 'honza/vim-snippets'
-Bundle 'garbas/vim-snipmate'
-Bundle 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
-Bundle 'chriskempson/base16-vim'
-Bundle 'ivanov/vim-ipython'
-Bundle 'JuliaLang/julia-vim'
-Bundle 'godlygeek/tabular'
-Bundle 'tomasr/molokai'
+Plugin 'gmarik/vundle'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-markdown'
+Plugin 'LaTeX-Box-Team/LaTeX-Box'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'kien/ctrlp.vim'
+Plugin 'ervandew/supertab'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'honza/vim-snippets'
+Plugin 'garbas/vim-snipmate'
+Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
+Plugin 'chriskempson/base16-vim'
+Plugin 'godlygeek/tabular'
+Plugin 'tomasr/molokai'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'xolox/vim-notes'
+Plugin 'xolox/vim-misc'
 call vundle#end()
+" }}}
 
-" Syntax highlighting, indentation and automatic file type recognition
+" Syntax highlighting, indentation and automatic file type recognition {{{
 filetype plugin indent on
 syntax enable
+" }}}
 
-" General
-"""""""""
+" General options {{{
+"""""""""""""""""
 set hidden         " hide file instead of closing it
 set autoread       " reread file automatically if modified outside of Vim
 set autowrite      " write file automatically upon some actions (see help)
@@ -43,8 +47,9 @@ set history=1000   " longer history
 "set spell         " spell checking
 set encoding=utf-8 " default encoding
 set vb t_vb=       " Disable the bell
+" }}}
 
-" Vim UI
+" Vim UI {{{
 """"""""
 if has('statusline')
     " Status line detail:
@@ -111,42 +116,45 @@ endif
 
 " Colors
 if has("gui_running")
-    set background=dark
+    set background=light
     let g:molokai_original = 1
-    colorscheme molokai
+    colorscheme solarized
 else
-    colorscheme Tomorrow-Night-Eighties
     set t_Co=256  " I can do 256 colors!
+    colorscheme Tomorrow-Night-Eighties
 endif
 
 " Show hidden characters
-""""""""""""""""""""""""
 "set list
 set listchars=tab:▸\ ,eol:¬
+" }}}
 
-" Persistent undo
+" Persistent undo {{{
 """""""""""""""""
 if has('persistent_undo')
     set undofile
     set undolevels=1000
     set undoreload=10000
 endif
+" }}}
 
-" Backups
+" Backups {{{
 """""""""
 set backup                       " enable backups
 set noswapfile
 set undodir=$HOME/.vim/tmp/undo/
 set backupdir=$HOME/.vim/tmp/backup/
+" }}}
 
-" Search options
+" Search options {{{
 """"""""""""""""
 set incsearch
 set hlsearch
 set ignorecase
 set smartcase
+" }}}
 
-" Formatting
+" Formatting {{{
 """"""""""""
 set nowrap         " do not wrap long lines
 set autoindent     " indent at the same level of the previous line
@@ -155,8 +163,9 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab      " spaces, not tabs
 set textwidth=79   " wrap lines after 79 characters
+" }}}
 
-" Key mappings
+" Key mappings {{{
 """"""""""""""
 " Use comma instead of \ for leader
 let mapleader=","
@@ -171,12 +180,6 @@ nnoremap ; :
 " Toggle search highlighting
 nnoremap <silent> <leader><space> :set invhlsearch<CR>
 
-" Disable arrows in insert mode
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
-
 " Yank to end of line with Y
 nnoremap Y y$
 
@@ -189,12 +192,11 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Insert new lines without entering insert mode
-nnoremap <S-Enter> O<Esc>
-nnoremap <Enter> o<Esc>
+nnoremap <leader>a O<Esc>
+nnoremap <leader>b o<Esc>
 
-" Select word easily
-nnoremap <space> viw
-vnoremap <space> <ESC>
+" Close/open folds with space
+nnoremap <space> za
 
 " Move between matching brackets with tab in normal mode
 nnoremap <tab> <s-%>
@@ -221,24 +223,48 @@ nnoremap <silent> <leader>gc :Gcommit<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
 nnoremap <silent> <leader>gl :Glog<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
+" }}}
 
-" Completion
+" Completion {{{
 """"""""""""
 " Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup omnigroup
+    autocmd!
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup END
 let g:SuperTabDefaultCompletionType = "context"
+" }}}
 
-" Others
-""""""""
+" Netrw {{{
+let g:netrw_winsize = 70  " When opening in vertical split, use 70% for file
+let g:netrw_altv = 1      " Keep Netrw in the left window
+let g:netrw_sort_by        = 'time'
+let g:netrw_sort_direction = 'reverse'
+" }}}
+
+" Filetype specific options {{{
+"""""""""""""""""""""""""""
 " Proper filetype for LaTeX
 let g:tex_flavor = "latex"
 
-" Recognize .md as markdown files
-autocmd BufNewFile,BufRead *.md set ft=markdown
+" Markdown
+augroup markdownmd
+    autocmd!
+    autocmd BufNewFile,BufRead *.md set ft=markdown
+augroup END
+let g:markdown_fenced_languages = ["css", "python", "c", "cpp", "sh", "tex", "r", "javascript"]
 
 " Use free format Fortran (yay 21st century)
 let fortran_free_source=1
+
+" Fold on marker in vimscript files
+augroup filetype_vim
+    autocmd!
+    autocmd Filetype vim setlocal foldmethod=marker
+augroup END
+" }}}
+
