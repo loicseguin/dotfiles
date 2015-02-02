@@ -1,20 +1,21 @@
 " Only two spaces of indentation for LaTeX files
-set shiftwidth=2
-set tabstop=2
-set softtabstop=2
+setlocal shiftwidth=2
+setlocal tabstop=2
+setlocal softtabstop=2
 
 " Decent localleader key
 let maplocalleader = ","
 
 " Key mappings
-imap <buffer> [[ \begin{
-imap <buffer> ]] <Plug>LatexCloseCurEnv
-nmap <buffer> <F5> <Plug>LatexChangeEnv
-vmap <buffer> <F7> <Plug>LatexWrapSelection
-vmap <buffer> <S-F7> <Plug>LatexEnvWrapSelection
+inoremap <buffer> [[ \begin{
+inoremap <buffer> ]] <Plug>LatexCloseCurEnv
+nnoremap <buffer> <F5> <Plug>LatexChangeEnv
+vnoremap <buffer> <F7> <Plug>LatexWrapSelection
+vnoremap <buffer> <S-F7> <Plug>LatexEnvWrapSelection
 
 " LaTeX-Box configuration
-let g:LatexBox_latexmk_options = '-pvc'
+let g:LatexBox_latexmk_async=1                " Run compilation in background
+let g:LatexBox_latexmk_preview_continuously=1 " Recompile when changes are saved
 if has('mac')
     let g:LatexBox_viewer = 'open -a Skim'
     " View current line in pdf viewer Skim.
