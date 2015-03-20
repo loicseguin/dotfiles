@@ -28,8 +28,7 @@ Plugin 'godlygeek/tabular'
 Plugin 'tomasr/molokai'
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'xolox/vim-notes'
-Plugin 'xolox/vim-misc'
+Plugin 'fmoralesc/vim-pad'
 call vundle#end()
 " }}}
 
@@ -100,7 +99,7 @@ set scrolloff=5    " minimum number of lines above or below cursor
 set scrolljump=5   " lines to scroll when cursor leaves screen
 set number
 set cursorline
-set colorcolumn=80
+"set colorcolumn=80
 
 set guioptions-=rL " Disable scrollbars
 set guioptions-=T  " Disable menu bar
@@ -208,6 +207,9 @@ nnoremap <leader>m :silent !open -a Marked.app '%:p'<CR>
 nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
 nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
 
+" Quickly edit agenda
+nnoremap <silent> <leader>a :e $HOME/agenda.txt<CR>
+
 " Toggle numbering and fold column on and off.
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
 
@@ -266,5 +268,13 @@ augroup filetype_vim
     autocmd!
     autocmd Filetype vim setlocal foldmethod=marker
 augroup END
+" }}}
+
+" Notes with vim-pad {{{
+""""""""""""""""""""
+let g:pad#dir = "/Users/loic/Notebook"
+let g:pad#window_height=12
+let g:pad#open_in_split=0
+let g:pad#search_backend="/usr/local/bin/ggrep"
 " }}}
 

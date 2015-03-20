@@ -203,8 +203,7 @@ alias astro="cd ~/Courses/cea-astro/"
 
 # Editors
 v() { mvim "$@"; }
-
-alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs"
+e() { /usr/local/Cellar/emacs/24.4/Emacs.app/Contents/MacOS/Emacs "$@"; }
 
 # ResearchNote: blogue
 alias bnc="researchnote --config ~/.blognoterc create"

@@ -7,11 +7,11 @@ setlocal softtabstop=2
 let maplocalleader = ","
 
 " Key mappings
-inoremap <buffer> [[ \begin{
-inoremap <buffer> ]] <Plug>LatexCloseCurEnv
-nnoremap <buffer> <F5> <Plug>LatexChangeEnv
-vnoremap <buffer> <F7> <Plug>LatexWrapSelection
-vnoremap <buffer> <S-F7> <Plug>LatexEnvWrapSelection
+imap <buffer> [[ \begin{
+imap <buffer> ]] <Plug>LatexCloseCurEnv
+nmap <buffer> <F5> <Plug>LatexChangeEnv
+vmap <buffer> <F7> <Plug>LatexWrapSelection
+vmap <buffer> <S-F7> <Plug>LatexEnvWrapSelection
 
 " LaTeX-Box configuration
 let g:LatexBox_latexmk_async=1                " Run compilation in background
