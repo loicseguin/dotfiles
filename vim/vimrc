@@ -10,7 +10,7 @@ set rtp+=$HOME/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " List of bundles to use
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-markdown'
@@ -28,7 +28,8 @@ Plugin 'godlygeek/tabular'
 Plugin 'tomasr/molokai'
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'fmoralesc/vim-pad'
+Plugin 'vim-pandoc/vim-pandoc'
+Plugin 'vim-pandoc/vim-pandoc-syntax'
 call vundle#end()
 " }}}
 
@@ -278,3 +279,6 @@ let g:pad#open_in_split=0
 let g:pad#search_backend="/usr/local/bin/ggrep"
 " }}}
 
+" Pandoc mode {{{
+let g:pandoc#formatting#mode = "ha"
+" }}}
