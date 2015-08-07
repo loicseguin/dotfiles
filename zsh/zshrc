@@ -29,7 +29,6 @@ setopt correct
 
 ## COMPLETION ##
 
-unsetopt menu_complete   # do not autoselect the first completion entry
 unsetopt flowcontrol
 setopt auto_menu         # show completion menu on succesive tab press
 setopt complete_in_word
@@ -47,6 +46,7 @@ zstyle ':completion::complete:*' cache-path $ZSH/cache/
 
 ## DIRECTORY NAVIGATION ##
 
+cdpath=(~ ~/teach ~/learn ~/code)    # specify search path for cd command
 setopt auto_cd    # automatically change to directory without cd
 setopt auto_pushd        # push directory onto stack
 setopt pushd_ignore_dups # don't put duplicates onto stack
