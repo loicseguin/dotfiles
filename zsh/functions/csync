@@ -1,6 +1,6 @@
 csync () {
-    COURSESDIR="$HOME/Courses"
-    EXCLUDES="$HOME/Courses/nya-mecanique/.rsync_excludes"
+    COURSESDIR="$HOME/Dropbox"
+    EXCLUDES="$HOME/teach/203-nya-mecanique/.rsync_excludes"
     USBDIR="/Volumes/KINGSTON2GB/"
     if (( $# == 2)); then
         destdir="$2"
@@ -10,20 +10,26 @@ csync () {
     if (( $# >= 1 )); then
         case $1 in
             (cea)
-                cdir="$COURSESDIR/cea-astro"
+                cdir="$COURSESDIR/203-cea-astro"
                 ;;
             (nya)
-                cdir="$COURSESDIR/nya-mecanique"
+                cdir="$COURSESDIR/203-nya-mecanique"
                 ;;
             (nyc)
-                cdir="$COURSESDIR/nyc-ondes"
+                cdir="$COURSESDIR/203-nyc-ondes"
+                ;;
+            (1-605)
+                cdir="$COURSESDIR/1-605-intro-analytique-affaires"
+                ;;
+            (10-600)
+                cdir="$COURSESDIR/10-600-calcul-differentiel"
                 ;;
             (all)
                 cdir=($COURSESDIR/*)
                 ;;
             (*)
                 echo "usage: csync COURSE
-        where COURSE is nya, nyc, cea or all"
+        where COURSE is nya, nyc, cea, 1-605, 10-600 or all"
                 exit
                 ;;
         esac
