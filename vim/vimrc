@@ -13,7 +13,6 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-markdown'
 Plugin 'LaTeX-Box-Team/LaTeX-Box'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'kien/ctrlp.vim'
@@ -31,7 +30,6 @@ Plugin 'chriskempson/base16-vim'
 Plugin 'godlygeek/tabular'
 Plugin 'tomasr/molokai'
 Plugin 'nanotech/jellybeans.vim'
-Plugin 'altercation/vim-colors-solarized'
 Plugin 'vim-pandoc/vim-pandoc'
 Plugin 'vim-pandoc/vim-pandoc-syntax'
 call vundle#end()
@@ -323,30 +321,34 @@ let g:pandoc#formatting#mode = "ha"
 " C-w C-++               resize viewports to equal split
 " C-w 10+                increase size of current pane by value
 
-" To open R in terminal rather than RGui (only necessary on OS X)
-let vimrplugin_applescript = 0
-let vimrplugin_screenplugin = 0
-" For tmux support
-let g:ScreenImpl = 'Tmux'
-let vimrplugin_screenvsplit = 1 " For vertical tmux split
-let g:ScreenShellInitialFocus = 'shell' 
-" instruct to use your own .screenrc file
-let g:vimrplugin_noscreenrc = 1
-" For integration of r-plugin with screen.vim
-let g:vimrplugin_screenplugin = 1
-" Don't use conque shell if installed
-let vimrplugin_conqueplugin = 0
-" map the letter 'r' to send visually selected lines to R 
-let g:vimrplugin_map_r = 1
-" see R documentation in a Vim buffer
-let vimrplugin_vimpager = "no"
-" start R with F2 key
-map <F2> <Plug>RStart 
-imap <F2> <Plug>RStart
-vmap <F2> <Plug>RStart
-" send selection to R with space bar
-vmap <Space> <Plug>RDSendSelection 
-" send line to R with space bar
-nmap <Space> <Plug>RDSendLine
+
+augroup filetype_r
+    autocmd!
+    " To open R in terminal rather than RGui (only necessary on OS X)
+    autocmd Filetype r let vimrplugin_applescript = 0
+    autocmd Filetype r let vimrplugin_screenplugin = 0
+    " For tmux support
+    autocmd Filetype r let g:ScreenImpl = 'Tmux'
+    autocmd Filetype r let vimrplugin_screenvsplit = 1 " For vertical tmux split
+    autocmd Filetype r let g:ScreenShellInitialFocus = 'shell' 
+    " instruct to use your own .screenrc file
+    autocmd Filetype r let g:vimrplugin_noscreenrc = 1
+    " For integration of r-plugin with screen.vim
+    autocmd Filetype r let g:vimrplugin_screenplugin = 1
+    " Don't use conque shell if installed
+    autocmd Filetype r let vimrplugin_conqueplugin = 0
+    " map the letter 'r' to send visually selected lines to R 
+    autocmd Filetype r let g:vimrplugin_map_r = 1
+    " see R documentation in a Vim buffer
+    autocmd Filetype r let vimrplugin_vimpager = "no"
+    " start R with F2 key
+    autocmd Filetype r map <F2> <Plug>RStart 
+    autocmd Filetype r imap <F2> <Plug>RStart
+    autocmd Filetype r vmap <F2> <Plug>RStart
+    " send selection to R with space bar
+    autocmd Filetype r vmap <Space> <Plug>RDSendSelection 
+    " send line to R with space bar
+    autocmd Filetype r nmap <Space> <Plug>RDSendLine
+augroup END
 " }}}
 

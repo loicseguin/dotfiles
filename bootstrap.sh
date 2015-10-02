@@ -49,15 +49,15 @@ install_vim() {
             # Get MacVim snapshot because installing from Homebrew requires
             # Xcode
             if [[ ! -f $HOME/bin/mvim ]]; then
-                curl -OL https://github.com/b4winckler/macvim/releases/download/snapshot-73/MacVim-snapshot-73-Mavericks.tbz
-                tar zxvf MacVim-snapshot-73-Mavericks.tbz
-                mv MacVim-snapshot-73/MacVim.app /Applications/MacVim.app
+                curl -OL https://github.com/macvim-dev/macvim/releases/download/snapshot-77/MacVim-snapshot-77.tbz
+                tar zxvf MacVim-snapshot-77.tbz
+                mv MacVim-snapshot-77/MacVim.app /Applications/MacVim.app
                 mkdir -p $HOME/bin
-                mv MacVim-snapshot-73/mvim $HOME/bin/mvim
+                mv MacVim-snapshot-77/mvim $HOME/bin/mvim
                 ln -s $HOME/bin/mvim $HOME/bin/vim
                 ln -s $HOME/bin/mvim $HOME/bin/vimdiff
                 ln -s $HOME/bin/mvim $HOME/bin/view
-                rm -rf MacVim-snapshot-73*
+                rm -rf MacVim-snapshot-77*
             fi
             ;;
         linux*)
@@ -94,8 +94,8 @@ git clone https://github.com/gmarik/Vundle.vim.git $DOTDIR/vim/bundle/Vundle.vim
 vim +BundleInstall +q +q
 
 # Emacs
-mkdir -p $HOME/.emacs.d
-ln -Ffs $DOTDIR/init.el $HOME/.emacs.d/init.el
+#mkdir -p $HOME/.emacs.d
+#ln -Ffs $DOTDIR/init.el $HOME/.emacs.d/init.el
 
 # Matplotlib
 mkdir -p $HOME/.matplotlib
@@ -115,11 +115,11 @@ touch $HOME/.hushlogin  # Silence! (no "Last login on ..." message)
 ln -Ffs $DOTDIR/gemrc $HOME/.gemrc
 
 # Anaconda
-if [[ ! -d anaconda3 ]]; then
+if [[ ! -d miniconda3 ]]; then
     case $OSTYPE in
         darwin*)
-            curl -OL http://repo.continuum.io/miniconda/Miniconda3-3.7.0-MacOSX-x86_64.sh
-            bash Miniconda3-3.7.0-MacOSX-x86_64.sh
+            curl -OL https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
+            bash Miniconda3-latest-MacOSX-x86_64.sh
             ;;
         linux*)
             wget http://repo.continuum.io/miniconda/Miniconda3-3.7.0-Linux-x86_64.sh
