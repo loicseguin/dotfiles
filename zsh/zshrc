@@ -69,8 +69,11 @@ PATH="/usr/local/heroku/bin:${PATH}"
 # Personal scripts in ~/bin.
 PATH="${HOME}/bin:/usr/local/bin:${PATH}"
 
+# MacVim
+PATH="/Applications/MacVim.app/Contents/bin:${PATH}"
+
 # Anaconda
-PATH=$HOME/miniconda3/bin:$PATH
+PATH=$HOME/anaconda3/bin:$PATH
 
 export PATH
 
@@ -197,9 +200,10 @@ alias history='fc -l 1'
 
 # quickly reach directories
 alias dotf="cd ~/dotfiles/"
-alias mec="cd ~/Courses/nya-mecanique/"
-alias nyc="cd ~/Courses/nyc-ondes/"
-alias astro="cd ~/Courses/cea-astro/"
+alias mec="cd ~/teach/203-nya-mecanique/"
+alias nyc="cd ~/teach/203-nyc-ondes/"
+alias astro="cd ~/teach/203-cea-astro/"
+alias radio="cd ~/teach/203-905-radiodiagnostic/"
 
 # Editors
 v() { mvim "$@"; }
@@ -222,18 +226,14 @@ export AGENDAFILE=$HOME/agenda.txt
 a() { agenda "$@" $AGENDAFILE; }
 
 # IPython Notebook
-alias ipn="ipython notebook"
-alias ijulia="ipython notebook --profile julia"
+alias ipn="jupyter notebook"
+alias ijulia="jupyter notebook --profile julia"
 
 # Add path to my own zsh functions.
 [[ $fpath = *loic* ]] || fpath=(~loic/.zsh/functions $fpath)
 autoload -U ${fpath[1]}/*(:t)
 
 # Print weekly schedule
-a
+#a
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
-export XUGGLE_HOME="/usr/local/xuggler"
-
-export TRACKER_HOME="/usr/local/tracker"

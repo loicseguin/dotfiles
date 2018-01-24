@@ -10,17 +10,15 @@ set rtp+=$HOME/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " List of bundles to use
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'LaTeX-Box-Team/LaTeX-Box'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
 Plugin 'kien/ctrlp.vim'
 Plugin 'ervandew/supertab'
-Plugin 'ervandew/screen'
-Plugin 'jcfaria/Vim-R-plugin'
-Plugin 'jalvesaq/VimCom'
-Plugin 'jalvesaq/R-Vim-runtime'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'honza/vim-snippets'
@@ -29,9 +27,10 @@ Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
 Plugin 'chriskempson/base16-vim'
 Plugin 'godlygeek/tabular'
 Plugin 'tomasr/molokai'
-Plugin 'nanotech/jellybeans.vim'
 Plugin 'vim-pandoc/vim-pandoc'
 Plugin 'vim-pandoc/vim-pandoc-syntax'
+Plugin 'jamessan/vim-gnupg'
+Plugin 'joshdick/onedark.vim'
 call vundle#end()
 " }}}
 
@@ -46,9 +45,9 @@ set hidden         " hide file instead of closing it
 set autoread       " reread file automatically if modified outside of Vim
 set autowrite      " write file automatically upon some actions (see help)
 set history=1000   " longer history
-"set spell         " spell checking
 set encoding=utf-8 " default encoding
 set vb t_vb=       " Disable the bell
+set wildignore=*.pyc,*.bak  " Ignore these patterns in filename completions
 " }}}
 
 " Vim UI {{{
@@ -88,12 +87,10 @@ if has('statusline')
     set statusline=%<%f\                     " Filename
     set statusline+=%w%h%m%r                 " Options
     set statusline+=%{fugitive#statusline()} " Git Hotness
-    set statusline+=\ [%{&ff}%(\|%{(&fenc!=''?&fenc:&enc)}%)%(\|%{&filetype}%)] " Filetype
-    "set statusline+=\ [%{getcwd()}]          " Current dir
-    set statusline+=%=%-5.(%l,%c%V%)\ %p%%   " Right aligned file nav info
+    set statusline+=%=%{&ff}%(\ \ %{(&fenc!=''?&fenc:&enc)}%)%(\ \ %{&filetype}%) " Filetype
+    set statusline+=\ \ Buf\ %n\ \ %-5.(%l:%c%V%)\ %p%%\    " Right aligned file nav info
 endif
 
-set ruler                       " Show the ruler
 set backspace=indent,eol,start  " Backspace for dummies
 set showmatch                   " highlight matching parentheses
 set wildmenu                    " show command auto-completion matches in status line
@@ -102,14 +99,10 @@ set scrolloff=5    " minimum number of lines above or below cursor
 set scrolljump=5   " lines to scroll when cursor leaves screen
 set number
 set cursorline
-"set colorcolumn=80
-
-set guioptions-=rL " Disable scrollbars
-set guioptions-=T  " Disable menu bar
 
 " Font for Mac, Windows and Linux
 if has("mac")
-    set guifont=Menlo:h14
+    set guifont=Monaco:h14
 elseif has("gui_win32")
     set guifont=Consolas:h11:cANSI
 else
@@ -119,16 +112,16 @@ endif
 " Colors
 if has("gui_running")
     set background=dark
-    let g:molokai_original = 1
-    colorscheme base16-monokai
+    colorscheme onedark
+    set guioptions-=rL " Disable scrollbars
+    set guioptions-=T  " Disable menu bar
 else
     set t_Co=256  " I can do 256 colors!
     colorscheme Tomorrow-Night-Eighties
 endif
 
 " Show hidden characters
-"set list
-set listchars=tab:▸\ ,eol:¬
+set listchars=tab:▸\ ,eol:¬,trail:⋅,nbsp:␣
 " }}}
 
 " Persistent undo {{{
@@ -171,16 +164,15 @@ set textwidth=79   " wrap lines after 79 characters
 """"""""""""""
 " Use comma instead of \ for leader
 let mapleader=","
-let maplocalleader="\\"
 
 " To normal mode with jk
 inoremap jk <Esc>
 
-" One less key stroke to enter commands
+" One less keystroke to enter commands
 nnoremap ; :
 
 " Toggle search highlighting
-nnoremap <silent> <leader><space> :set invhlsearch<CR>
+nnoremap <silent> <leader>hs :set invhlsearch<CR>
 
 " Yank to end of line with Y
 nnoremap Y y$
@@ -193,15 +185,18 @@ nnoremap k gk
 vnoremap < <gv
 vnoremap > >gv
 
-" Insert new lines without entering insert mode
-nnoremap <leader>a O<Esc>
-nnoremap <leader>b o<Esc>
+" Upper/lowercase a word
+nnoremap <leader>u mQviwU`Q
+nnoremap <leader>l mQviwu`Q
 
 " Close/open folds with space
 nnoremap <space> za
 
 " Move between matching brackets with tab in normal mode
 nnoremap <tab> <s-%>
+
+" Switch to previous buffer
+nnoremap <leader>b :b#<CR>
 
 " Open file in Marked
 nnoremap <leader>m :silent !open -a Marked.app '%:p'<CR>
@@ -213,14 +208,14 @@ nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
 " Quickly edit agenda
 nnoremap <silent> <leader>a :e $HOME/agenda.txt<CR>
 
+" Toggle spell checking
+nnoremap <F1> :set spell!<CR>
+
 " Toggle numbering and fold column on and off.
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
 
 " Press <F3> to delete all trailing spaces in a file.
 nnoremap <silent> <F3> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
-
-" Toggle spell checking
-nnoremap <F1> :set spell!<CR>
 
 " Fugitive plugin keymaps
 nnoremap <silent> <leader>gs :Gstatus<CR>
@@ -228,6 +223,10 @@ nnoremap <silent> <leader>gc :Gcommit<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
 nnoremap <silent> <leader>gl :Glog<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
+
+" Toggle NERDTree
+noremap <leader>n :NERDTreeToggle<CR>
+
 " }}}
 
 " Completion {{{
@@ -244,17 +243,11 @@ augroup END
 let g:SuperTabDefaultCompletionType = "context"
 " }}}
 
-" Netrw {{{
-let g:netrw_winsize = 70  " When opening in vertical split, use 70% for file
-let g:netrw_altv = 1      " Keep Netrw in the left window
-let g:netrw_sort_by        = 'time'
-let g:netrw_sort_direction = 'reverse'
-" }}}
-
 " Filetype specific options {{{
 """""""""""""""""""""""""""
 " Proper filetype for LaTeX
 let g:tex_flavor = "latex"
+let g:LatexBox_quickfix = 4
 
 " Markdown
 augroup markdownmd
@@ -271,84 +264,74 @@ augroup filetype_vim
     autocmd!
     autocmd Filetype vim setlocal foldmethod=marker
 augroup END
+
+" Smaller indentation for HTML files
+augroup html
+    autocmd!
+    autocmd Filetype html,js setlocal tabstop=2
+    autocmd Filetype html,js setlocal shiftwidth=2
+    autocmd Filetype html,js setlocal softtabstop=2
+augroup END
 " }}}
 
-" Notes with vim-pad {{{
-""""""""""""""""""""
-let g:pad#dir = "/Users/loic/Notebook"
-let g:pad#window_height=12
-let g:pad#open_in_split=0
-let g:pad#search_backend="/usr/local/bin/ggrep"
+" GnuPG Extensions{{{
+
+" Use gpg
+let g:GPGExecutable="gpg"
+
+" Tell the GnuPG plugin to armor new files.
+let g:GPGPreferArmor=1
+
+" Tell the GnuPG plugin to sign new files.
+let g:GPGPreferSign=1
+
+augroup GnuPGExtra
+" Set extra file options.
+    autocmd BufReadCmd,FileReadCmd *.\(gpg\|asc\|pgp\) call SetGPGOptions()
+" Automatically close unmodified files after inactivity.
+    autocmd CursorHold *.\(gpg\|asc\|pgp\) quit
+augroup END
+
+function! SetGPGOptions()
+" Set updatetime to 1 minute.
+    set updatetime=60000
+" Fold at markers.
+    set foldmethod=marker
+" Automatically close all folds.
+    set foldclose=all
+" Only open folds with insert commands.
+    set foldopen=insert
+endfunction
 " }}}
 
 " Pandoc mode {{{
 let g:pandoc#formatting#mode = "ha"
 " }}}
 
-" Vim-R-Plugin {{{
-" sample settings for vim-r-plugin and screen.vim
-" Installation 
-"       - Place plugin file under ~/.vim/
-"       - To activate help, type in vim :helptags ~/.vim/doc
-"       - Place the following vim conf lines in .vimrc
-" Usage
-"       - Read intro/help in vim with :h vim-r-plugin or :h screen.txt
-"       - To initialize vim/R session, start screen/tmux, open some *.R file in
-"       vim and then hit F2 key
-"       - Object/omni completion command CTRL-X CTRL-O
-"       - To update object list for omni completion, run :RUpdateObjList
-" My favorite Vim/R window arrangement 
-"tmux attach
-"Open *attach.R file in Vim and hit F2 to open R
-"Go to R pane and create another paneane with C-a %
-"Open second R session in new pane
-"Go to vim pane and open a new viewport with :split *.R
-" Useful tmux commands
-"       tmux new -s <myname>       start new session with a specific name
-"tmux ls (C-a-s)             list tmux session
-"       tmux attach -t <id>        attach to specific session  
-"       tmux kill-session -t <id>  kill specific session
-" C-a-: killill-session         kill a session
-" C-a %                      split  pane vertically
-"       C-a "                      split pane horizontally
-" C-a-o                      jump cursor to next pane
-"C-a C-o                         swap panes
-" C-a-: resize-pane -L 10    resizes pane by 10 to left (LaTeX R U D)
-" Corresponding Vim commands
-" :split or :vsplit      split Vimewport
-" C-w-w                  jump cursor to next pane-
-" C-w-r                       swap viewports
-" C-w C-++               resize viewports to equal split
-" C-w 10+                increase size of current pane by value
+" Syntastic {{{
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers = ['flake8']
 
-augroup filetype_r
-    autocmd!
-    " To open R in terminal rather than RGui (only necessary on OS X)
-    autocmd Filetype r let vimrplugin_applescript = 0
-    autocmd Filetype r let vimrplugin_screenplugin = 0
-    " For tmux support
-    autocmd Filetype r let g:ScreenImpl = 'Tmux'
-    autocmd Filetype r let vimrplugin_screenvsplit = 1 " For vertical tmux split
-    autocmd Filetype r let g:ScreenShellInitialFocus = 'shell' 
-    " instruct to use your own .screenrc file
-    autocmd Filetype r let g:vimrplugin_noscreenrc = 1
-    " For integration of r-plugin with screen.vim
-    autocmd Filetype r let g:vimrplugin_screenplugin = 1
-    " Don't use conque shell if installed
-    autocmd Filetype r let vimrplugin_conqueplugin = 0
-    " map the letter 'r' to send visually selected lines to R 
-    autocmd Filetype r let g:vimrplugin_map_r = 1
-    " see R documentation in a Vim buffer
-    autocmd Filetype r let vimrplugin_vimpager = "no"
-    " start R with F2 key
-    autocmd Filetype r map <F2> <Plug>RStart 
-    autocmd Filetype r imap <F2> <Plug>RStart
-    autocmd Filetype r vmap <F2> <Plug>RStart
-    " send selection to R with space bar
-    autocmd Filetype r vmap <Space> <Plug>RDSendSelection 
-    " send line to R with space bar
-    autocmd Filetype r nmap <Space> <Plug>RDSendLine
-augroup END
+let g:syntastic_mode_map = {
+    \ "mode": "active",
+    \ "passive_filetypes": ["tex"] }
 " }}}
 
+" NERDTree {{{
+
+" Automatically open NERDTree when vim called without argument.
+augroup NERDTree 
+    autocmd StdinReadPre * let s:std_in=1
+    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+augroup END
+
+let NERDTreeIgnore=['\.pyc$', '__pycache__$[[dir]]']
+
+"}}}
