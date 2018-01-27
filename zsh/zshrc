@@ -54,26 +54,11 @@ setopt pushd_ignore_dups # don't put duplicates onto stack
 
 ## PATH ##
 
-# cabal installed scripts.
-PATH="${HOME}/.cabal/bin:${PATH}"
-
-# Julia
-PATH="${HOME}/Projects/julia:${PATH}"
-
-# Ruby RVM
-PATH="${HOME}/.rvm/bin:${PATH}"
-
-# Added by the Heroku Toolbelt
-PATH="/usr/local/heroku/bin:${PATH}"
-
-# Personal scripts in ~/bin.
-PATH="${HOME}/bin:/usr/local/bin:${PATH}"
-
 # MacVim
 PATH="/Applications/MacVim.app/Contents/bin:${PATH}"
 
 # Anaconda
-PATH=$HOME/anaconda3/bin:$PATH
+PATH=$HOME/miniconda3/bin:$PATH
 
 export PATH
 
@@ -199,7 +184,7 @@ alias hgca='hg qimport -r tip ; hg qrefresh -e ; hg qfinish tip'
 alias history='fc -l 1'
 
 # quickly reach directories
-alias dotf="cd ~/dotfiles/"
+alias dotf="cd ~/code/dotfiles/"
 alias mec="cd ~/teach/203-nya-mecanique/"
 alias nyc="cd ~/teach/203-nyc-ondes/"
 alias astro="cd ~/teach/203-cea-astro/"
@@ -207,12 +192,6 @@ alias radio="cd ~/teach/203-905-radiodiagnostic/"
 
 # Editors
 v() { mvim "$@"; }
-e() { /usr/local/Cellar/emacs/24.4/Emacs.app/Contents/MacOS/Emacs "$@"; }
-
-# ResearchNote: blogue
-alias bnc="researchnote --config ~/.blognoterc create"
-alias bnl="researchnote --config ~/.blognoterc list"
-alias bne="researchnote --config ~/.blognoterc edit"
 
 # Homebrew
 alias bu="brew update"
@@ -221,19 +200,10 @@ alias bug="brew upgrade"
 b() { brew "$@"; }
 bi() { brew install "$@"; }
 
-# Agenda
-export AGENDAFILE=$HOME/agenda.txt
-a() { agenda "$@" $AGENDAFILE; }
-
 # IPython Notebook
 alias ipn="jupyter notebook"
 alias ijulia="jupyter notebook --profile julia"
 
 # Add path to my own zsh functions.
-[[ $fpath = *loic* ]] || fpath=(~loic/.zsh/functions $fpath)
-autoload -U ${fpath[1]}/*(:t)
-
-# Print weekly schedule
-#a
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+#[[ $fpath = *loic* ]] || fpath=(~loic/.zsh/functions $fpath)
+#autoload -U ${fpath[1]}/*(:t)
