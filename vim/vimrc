@@ -12,22 +12,26 @@ call vundle#begin()
 " List of bundles to use
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
 Plugin 'LaTeX-Box-Team/LaTeX-Box'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
-"Plugin 'scrooloose/syntastic'
-Plugin 'kien/ctrlp.vim'
-Plugin 'ervandew/supertab'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'honza/vim-snippets'
-Plugin 'garbas/vim-snipmate'
-Plugin 'chriskempson/base16-vim'
-Plugin 'godlygeek/tabular'
-Plugin 'vim-pandoc/vim-pandoc'
-Plugin 'vim-pandoc/vim-pandoc-syntax'
 Plugin 'jamessan/vim-gnupg'
+Plugin 'joshdick/onedark.vim'
+Plugin 'morhetz/gruvbox'
+Plugin 'vim-airline/vim-airline'
+Plugin 'w0ng/vim-hybrid'
+"Plugin 'tomasr/molokai'
+"Plugin 'chriskempson/base16-vim'
+"Plugin 'vim-pandoc/vim-pandoc'
+"Plugin 'vim-pandoc/vim-pandoc-syntax'
+"Plugin 'tpope/vim-surround'
+"Plugin 'kien/ctrlp.vim'
+"Plugin 'ervandew/supertab'
+"Plugin 'MarcWeber/vim-addon-mw-utils'
+"Plugin 'tomtom/tlib_vim'
+"Plugin 'honza/vim-snippets'
+"Plugin 'garbas/vim-snipmate'
+"Plugin 'godlygeek/tabular'
 call vundle#end()
 " }}}
 
@@ -45,48 +49,39 @@ set history=1000   " longer history
 set encoding=utf-8 " default encoding
 set vb t_vb=       " Disable the bell
 set wildignore=*.pyc,*.bak  " Ignore these patterns in filename completions
+set path=**        " Search all files in current directory
 " }}}
 
 " Vim UI {{{
 """"""""
-if has('statusline')
+"if has('statusline')
     " Status line detail:
     " -------------------
-    "
     " %f    file name
     " %F    file path
     " %y    file type between braces (if defined)
-    "
     " %{v:servername}   server/session name (gvim only)
-    "
     " %<    collapse to the left if window is to small
-    "
     " %( %) display contents only if not empty
-    "
     " %1*   use color preset User1 from this point on (use %0* to reset)
-    "
     " %([%R%M]%)   read-only, modified and modifiable flags between braces
-    "
     " %=     right-align following items
-    "
     " %{&fileencoding}  displays encoding (like utf8)
     " %{&fileformat}    displays file format (unix, dos, etc..)
     " %{&filetype}      displays file type (vim, python, etc..)
-    "
     " #%n   buffer number
     " %l/%L line number, total number of lines
     " %p%   percentage of file
     " %c%V  column number, absolute column number
     " &modified         whether or not file was modified
     "
-    set laststatus=2
-    " Broken down into easily includeable segments
-    set statusline=%<%f\                     " Filename
-    set statusline+=%w%h%m%r                 " Options
-    set statusline+=%{fugitive#statusline()} " Git Hotness
-    set statusline+=%=%{&ff}%(\ \ %{(&fenc!=''?&fenc:&enc)}%)%(\ \ %{&filetype}%) " Filetype
-    set statusline+=\ \ Buf\ %n\ \ %-5.(%l:%c%V%)\ %p%%\    " Right aligned file nav info
-endif
+    "set laststatus=2
+    "set statusline=%<%f\                     " Filename
+    "set statusline+=%w%h%m%r                 " Options
+    "set statusline+=%{fugitive#statusline()} " Git Hotness
+    "set statusline+=%=%{&ff}%(\ \ %{(&fenc!=''?&fenc:&enc)}%)%(\ \ %{&filetype}%) " Filetype
+    "set statusline+=\ \ %-5.(%l:%c%V%)\ %p%%\    " Right aligned file nav info
+"endif
 
 set backspace=indent,eol,start  " Backspace for dummies
 set showmatch                   " highlight matching parentheses
@@ -99,7 +94,7 @@ set cursorline
 
 " Font for Mac, Windows and Linux
 if has("mac")
-    set guifont=Monaco:h12
+    set guifont=Monaco:h13
 elseif has("gui_win32")
     set guifont=Consolas:h11:cANSI
 else
@@ -109,16 +104,27 @@ endif
 " Colors
 if has("gui_running")
     set background=dark
-    colorscheme base16-default-dark
+    colorscheme onedark
     set guioptions-=rL " Disable scrollbars
     set guioptions-=T  " Disable menu bar
 else
     set t_Co=256  " I can do 256 colors!
-    colorscheme base16-default-dark
+    set bg=dark
+    colorscheme hybrid
 endif
 
 " Show hidden characters
 set listchars=tab:▸\ ,eol:¬,trail:⋅,nbsp:␣
+
+" Change cursor shape in Terminal
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
+
+" optional reset cursor on start:
+augroup myCmds
+    au!
+    autocmd VimEnter * silent !echo -ne "\e[2 q"
+augroup END
 " }}}
 
 " Persistent undo {{{
@@ -231,7 +237,6 @@ augroup omnigroup
     autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 augroup END
-let g:SuperTabDefaultCompletionType = "context"
 " }}}
 
 " Filetype specific options {{{
@@ -256,13 +261,21 @@ augroup filetype_vim
     autocmd Filetype vim setlocal foldmethod=marker
 augroup END
 
-" Smaller indentation for HTML files
-augroup html
+" Fold functions in python files
+augroup filetype_python
     autocmd!
-    autocmd Filetype html,js setlocal tabstop=2
-    autocmd Filetype html,js setlocal shiftwidth=2
-    autocmd Filetype html,js setlocal softtabstop=2
+    autocmd Filetype python setlocal foldmethod=indent
+    autocmd Filetype python setlocal foldnestmax=2
 augroup END
+
+" Smaller indentation for some files
+augroup smallindent
+    autocmd!
+    autocmd Filetype r,c,cpp,html,js setlocal tabstop=2
+    autocmd Filetype r,c,cpp,html,js setlocal shiftwidth=2
+    autocmd Filetype r,c,cpp,html,js setlocal softtabstop=2
+augroup END
+
 " }}}
 
 " GnuPG Extensions{{{
@@ -299,30 +312,9 @@ endfunction
 let g:pandoc#formatting#mode = "ha"
 " }}}
 
-" Syntastic {{{
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-"let g:syntastic_python_checkers = ['flake8']
-
-"let g:syntastic_mode_map = {
-    "\ "mode": "active",
-    "\ "passive_filetypes": ["tex"] }
-" }}}
-
 " NERDTree {{{
-
-" Automatically open NERDTree when vim called without argument.
-augroup NERDTree 
-    autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-augroup END
 
 let NERDTreeIgnore=['\.pyc$', '__pycache__$[[dir]]']
 
 "}}}
+
