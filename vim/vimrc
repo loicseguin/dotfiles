@@ -17,6 +17,7 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jamessan/vim-gnupg'
 Plugin 'joshdick/onedark.vim'
+<<<<<<< HEAD
 Plugin 'vim-airline/vim-airline'
 Plugin 'w0ng/vim-hybrid'
 Plugin 'PProvost/vim-ps1.git'
@@ -51,7 +52,6 @@ set encoding=utf-8 " default encoding
 set vb t_vb=       " Disable the bell
 set wildignore=*.pyc,*.bak  " Ignore these patterns in filename completions
 set path=**        " Search all files in current directory
-set ff=unix        " Always use Unix line endings
 " }}}
 
 " Vim UI {{{
@@ -92,6 +92,7 @@ endif
 set listchars=tab:▸\ ,eol:¬,trail:⋅,nbsp:␣
 
 " Change cursor shape in terminal
+" Change cursor shape in Terminal
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
@@ -250,7 +251,6 @@ augroup smallindent
     autocmd Filetype r,c,cpp,html,js setlocal shiftwidth=2
     autocmd Filetype r,c,cpp,html,js setlocal softtabstop=2
 augroup END
-
 " }}}
 
 " GnuPG Extensions{{{

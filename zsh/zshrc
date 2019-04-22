@@ -182,9 +182,6 @@ alias ijulia="jupyter notebook --profile julia"
 GPG_TTY=`tty` 
 export GPG_TTY
 
-# Miniconda
-export PATH=$HOME/miniconda3/bin:$PATH
-
 # Make new tab in same directory requires the following hack in zsh.
 #precmd () {print -Pn "\e]2; %~/ \a"}
 #preexec () {print -Pn "\e]2; %~/ \a"}
