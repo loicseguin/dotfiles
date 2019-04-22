@@ -1,7 +1,7 @@
 ## PROMPT ##
 
 # Enable tab completion and colors
-autoload -U compinit colors
+autoload -Uz compinit colors
 compinit
 colors
 
@@ -12,17 +12,16 @@ unsetopt auto_name_dirs
 autoload -Uz vcs_info
 setopt prompt_subst
 precmd () { vcs_info }
-zstyle ':vcs_info:*' enable hg git
+zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:hg*:*' get-revision true
 zstyle ':vcs_info:*' stagedstr ':✔'
 zstyle ':vcs_info:*' unstagedstr ':✘'
-zstyle ':vcs_info:*' formats " %{$fg[grey]%}on %{$fg_no_bold[magenta]%}%s:%b%u%c%{$reset_color%}"
+zstyle ':vcs_info:*' formats "  %{$fg_no_bold[magenta]%}%s:%b%u%c%{$reset_color%}"
 zstyle ':vcs_info:*' actionformats " [%s|%a:%{$fg[red]%}%b%{$fg[yellow]%}%u%c%{$reset_color%}]"
-zstyle ':vcs_info:hg*:*' hgrevformat ""
 
-PROMPT='%{$fg_no_bold[red]%}%n %{$fg[grey]%}in %{$fg[green]%}%~%{$reset_color%}${vcs_info_msg_0_}
-%{$fg[grey]%}∰  %{$reset_color%}'
+PROMPT=$'%{$fg_no_bold[brown]%}%n  %{$fg[green]%}%~%{$reset_color%}${vcs_info_msg_0_}
+%{$fg[white]%}∰  %{$reset_color%}'
 
 # Only gentle corrections suggested
 setopt correct
@@ -46,21 +45,10 @@ zstyle ':completion::complete:*' cache-path $ZSH/cache/
 
 ## DIRECTORY NAVIGATION ##
 
-cdpath=(~ ~/teach ~/learn ~/code)    # specify search path for cd command
-setopt auto_cd    # automatically change to directory without cd
+unsetopt autocd    # automatically change to directory without cd
 setopt auto_pushd        # push directory onto stack
 setopt pushd_ignore_dups # don't put duplicates onto stack
 
-
-## PATH ##
-
-# MacVim
-PATH="/Applications/MacVim.app/Contents/bin:${PATH}"
-
-# Anaconda
-PATH=$HOME/miniconda3/bin:$PATH
-
-export PATH
 
 ## HISTORY ##
 
@@ -68,7 +56,7 @@ HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
-setopt append_history
+setopt appendhistory
 setopt extended_history
 setopt hist_expire_dups_first
 setopt hist_ignore_dups # ignore duplication command history list
@@ -89,6 +77,9 @@ bindkey "\e[3~" delete-char
 
 # My favourite editor is vim.
 export EDITOR="vim"
+
+# Still use emacs-style zsh bindings
+bindkey -e
 
 # Colorful man pages
 export LESS_TERMCAP_mb=$'\e[01;31m'
@@ -166,20 +157,6 @@ alias ga='git add'
 compdef _git ga=git-add
 alias grh='git reset HEAD'
 
-# Mercurial
-alias hgc='hg commit'
-alias hgb='hg branch'
-alias hgba='hg branches'
-alias hgco='hg checkout'
-alias hgd='hg diff'
-alias hged='hg diffmerge'
-# pull and update
-alias hgpl='hg pull -u'
-alias hgp='hg push'
-alias hgs='hg status'
-# this is the 'git commit --amend' equivalent
-alias hgca='hg qimport -r tip ; hg qrefresh -e ; hg qfinish tip'
-
 # Show history
 alias history='fc -l 1'
 
@@ -189,9 +166,6 @@ alias mec="cd ~/teach/203-nya-mecanique/"
 alias nyc="cd ~/teach/203-nyc-ondes/"
 alias astro="cd ~/teach/203-cea-astro/"
 alias radio="cd ~/teach/203-905-radiodiagnostic/"
-
-# Editors
-v() { mvim "$@"; }
 
 # Homebrew
 alias bu="brew update"
@@ -204,6 +178,13 @@ bi() { brew install "$@"; }
 alias ipn="jupyter notebook"
 alias ijulia="jupyter notebook --profile julia"
 
-# Add path to my own zsh functions.
-#[[ $fpath = *loic* ]] || fpath=(~loic/.zsh/functions $fpath)
-#autoload -U ${fpath[1]}/*(:t)
+# Add tty info for vim-gnupg to work properly
+GPG_TTY=`tty` 
+export GPG_TTY
+
+# Miniconda
+export PATH=$HOME/miniconda3/bin:$PATH
+
+# Make new tab in same directory requires the following hack in zsh.
+#precmd () {print -Pn "\e]2; %~/ \a"}
+#preexec () {print -Pn "\e]2; %~/ \a"}
