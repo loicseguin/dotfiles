@@ -1,5 +1,3 @@
-# This file goes into the /Users/$username/Documents/WindowsPowerShell directory.
-
 # Use UTF8 character encoding
 $OutputEncoding = New-Object -typename System.Text.UTF8Encoding
 [Console]::OutputEncoding = New-Object -typename System.Text.UTF8Encoding

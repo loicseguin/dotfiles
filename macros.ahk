@@ -1,4 +1,4 @@
-F12::
+﻿F12::
 Run, gvim.exe D:\.lscsafe.gpg
 return
 
@@ -34,4 +34,12 @@ return
 
 <^>!f::
 Send, {]}
+return
+
+<^>!=::
+Send, {±}
+return
+
+<^>!m::
+Send, {μ}
 return
