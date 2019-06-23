@@ -85,7 +85,7 @@ elseif has("gui_win32")
     "set guifont=Hack:h10.5
     set guifont=DejaVu_Sans_Mono:h11
 else
-    set guifont=DejaVu\ Sans\ Mono\ 10
+    set guifont=Noto\ Sans\ Mono\ 11
 endif
 
 " Show hidden characters
@@ -298,3 +298,24 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 
 "}}}
 
+" Airline {{{
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+let g:airline_symbols.maxlinenr=''
+
+" airline symbols
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+" }}}
