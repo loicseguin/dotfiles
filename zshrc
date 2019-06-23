@@ -8,20 +8,19 @@ colors
 # Don't screw up directory names
 unsetopt auto_name_dirs
 
-# Add Git and Mercurial status to prompt
+# Add Git status to prompt
 autoload -Uz vcs_info
 setopt prompt_subst
 precmd () { vcs_info }
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:hg*:*' get-revision true
 zstyle ':vcs_info:*' stagedstr ':✔'
 zstyle ':vcs_info:*' unstagedstr ':✘'
 zstyle ':vcs_info:*' formats "  %{$fg_no_bold[magenta]%}%s:%b%u%c%{$reset_color%}"
 zstyle ':vcs_info:*' actionformats " [%s|%a:%{$fg[red]%}%b%{$fg[yellow]%}%u%c%{$reset_color%}]"
 
-PROMPT=$'%{$fg_no_bold[brown]%}%n  %{$fg[green]%}%~%{$reset_color%}${vcs_info_msg_0_}
-%{$fg[white]%}∰  %{$reset_color%}'
+PROMPT=$'%{$fg_no_bold[yellow]%}%n  %{$fg[green]%}%~%{$reset_color%}${vcs_info_msg_0_}
+%{$fg[bg-black]%}∰  %{$reset_color%}'
 
 # Only gentle corrections suggested
 setopt correct
@@ -179,7 +178,7 @@ alias ipn="jupyter notebook"
 alias ijulia="jupyter notebook --profile julia"
 
 # Add tty info for vim-gnupg to work properly
-GPG_TTY=`tty` 
+GPG_TTY=`tty`
 export GPG_TTY
 
 # Make new tab in same directory requires the following hack in zsh.
