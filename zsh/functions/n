@@ -1,5 +1,0 @@
-function n() {
-    NOTE_DIR=${HOME}/Notebook
-    NOTE_NAME="$1"
-    gvim "${NOTE_DIR}/${NOTE_NAME}.md" -c "40vspl" -c "e ~/Notebook" -c "wincmd l"
-}

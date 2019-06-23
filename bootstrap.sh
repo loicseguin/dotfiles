@@ -5,7 +5,7 @@
 #   curl -LO https://raw.github.com/loicseguin/dotfiles/master/bootstrap.sh
 #   bash bootstrap.sh
 
-DOTDIR=$HOME/dotfiles
+DOTDIR=$HOME/code/dotfiles
 
 # Are dotfiles already in place? If so, we are done.
 if [ -d $DOTDIR ]; then
@@ -78,8 +78,6 @@ check_install git
 git clone https://github.com/loicseguin/dotfiles.git $DOTDIR
 
 # Version control
-ln -Ffs $DOTDIR/hgrc $HOME/.hgrc
-ln -Ffs $DOTDIR/hgignore $HOME/.hgignore
 ln -Ffs $DOTDIR/gitconfig $HOME/.gitconfig
 
 # Vim
@@ -93,40 +91,11 @@ install_vim
 git clone https://github.com/gmarik/Vundle.vim.git $DOTDIR/vim/bundle/Vundle.vim
 vim +BundleInstall +q +q
 
-# Emacs
-#mkdir -p $HOME/.emacs.d
-#ln -Ffs $DOTDIR/init.el $HOME/.emacs.d/init.el
-
-# Matplotlib
-mkdir -p $HOME/.matplotlib
-ln -Ffs $DOTDIR/matplotlibrc $HOME/.matplotlibrc
-
 # LaTeX
 ln -Ffs $DOTDIR/latexmkrc $HOME/.latexmkrc
 
 # Zsh
-ln -Ffs $DOTDIR/zsh/zshrc $HOME/.zshrc
-ln -Ffs $DOTDIR/zsh $HOME/.zsh
+ln -Ffs $DOTDIR/zshrc $HOME/.zshrc
 check_install zsh
 chsh -s `command -v zsh`
 touch $HOME/.hushlogin  # Silence! (no "Last login on ..." message)
-
-# Miscellaneous
-ln -Ffs $DOTDIR/gemrc $HOME/.gemrc
-
-# Anaconda
-if [[ ! -d miniconda3 ]]; then
-    case $OSTYPE in
-        darwin*)
-            curl -OL https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
-            bash Miniconda3-latest-MacOSX-x86_64.sh
-            ;;
-        linux*)
-            wget http://repo.continuum.io/miniconda/Miniconda3-3.7.0-Linux-x86_64.sh
-            bash Miniconda3-3.7.0-Linux-x86_64.sh
-            ;;
-        *)
-            echo "You're using some weird OS, install Python yourself."
-            ;;
-    esac
-fi
