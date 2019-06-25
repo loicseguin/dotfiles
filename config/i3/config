@@ -196,14 +196,8 @@ exec --no-startup-id pasystray
 # Launch NetworkManager systray
 exec --no-startup-id nm-applet
 
-# Set Canadian multilingual keyboard
-exec_always --no-startup-id setxkbmap -layout "ca(multi)"
-
 # Enable compositing
 exec --no-startup-id compton -f
-
-# Enable power management
-exec --no-startup-id xfce4-power-manager
 
 # Matplotlib windows should be floating
 for_window [class="Matplotlib"] floating enable
@@ -215,5 +209,5 @@ exec_always --no-startup-id nvidia-settings --load-config-only
 exec_always --no-startup-id unclutter
 
 # Lock screen
-bindsym $mod+Shift+x exec xlock4
-
+bindsym $mod+Shift+x exec --no-startup-id i3lock -c "$bg-color"
+exec --no-startup-id xss-lock -- i3lock -n -c "$bg-color" &
