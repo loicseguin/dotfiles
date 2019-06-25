@@ -23,7 +23,7 @@ default_floating_border normal
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec xfce4-terminal
+bindsym $mod+Return exec i3-sensible-terminal
 
 # start Firefox web browser
 bindsym $mod+Shift+Return exec firefox

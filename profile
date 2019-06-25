@@ -6,7 +6,7 @@
 export HISTFILESIZE=10000
 export HISTSIZE=10000
 export EDITOR='vim'
-export TERMINAL='/usr/bin/xfce4-terminal'
+export TERMINAL='/usr/local/bin/st'
 
 # Colorful man pages
 export LESS_TERMCAP_mb=$'\e[01;31m'
