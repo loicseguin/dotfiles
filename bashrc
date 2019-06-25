@@ -24,3 +24,11 @@ alias mec="cd ~/teach/203-nya-mecanique/"
 alias nyc="cd ~/teach/203-nyc-ondes/"
 alias astro="cd ~/teach/203-cea-astro/"
 alias radio="cd ~/teach/203-905-radiodiagnostic/"
+
+# SSH-AGENT
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent | head -n -1 > ~/.ssh-agent-thing
+fi
+if [[ ! "$SSH_AUTH_SOCK" ]]; then
+    eval "$(<~/.ssh-agent-thing)"
+fi
