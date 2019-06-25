@@ -22,17 +22,6 @@ Plugin 'w0ng/vim-hybrid'
 Plugin 'PProvost/vim-ps1.git'
 Plugin 'tomasr/molokai'
 Plugin 'morhetz/gruvbox'
-"Plugin 'chriskempson/base16-vim'
-"Plugin 'vim-pandoc/vim-pandoc'
-"Plugin 'vim-pandoc/vim-pandoc-syntax'
-"Plugin 'tpope/vim-surround'
-"Plugin 'kien/ctrlp.vim'
-"Plugin 'ervandew/supertab'
-"Plugin 'MarcWeber/vim-addon-mw-utils'
-"Plugin 'tomtom/tlib_vim'
-"Plugin 'honza/vim-snippets'
-"Plugin 'garbas/vim-snipmate'
-"Plugin 'godlygeek/tabular'
 call vundle#end()
 " }}}
 
