@@ -14,7 +14,10 @@ xset r rate 220 40 &
 # Times in second before monitor state set to standby/suspend/off. On my
 # monitors, standy does not work, and suspend is the same as off, hence,
 # deactivate these two modes by setting them to 0.
-xset dpms 0 0 600 &
+xset dpms 0 0 1200 &
+
+# Set screensaver to start after 5 minutes of inactivity (handled by xss-lock)
+xset s 300 0 &
 
 # Reload Nvidia Settings
 nvidia-settings --load-config-only &
