@@ -2,6 +2,12 @@
 # ~/.xinitrc
 #
 
+# Load Xresources
+[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
+
+# Display configuration (from arandr)
+xrandr --output DVI-D-0 --mode 1680x1050 --pos 0x0 --rotate normal --output HDMI-0 --primary --mode 2560x1080 --pos 1680x0 --rotate normal --output DP-0 --off --output DP-1 --off --output DP-2 --off --output DP-3 --off --output DP-4 --off --output DP-5 --off
+
 # Set Canadian multilingual keyboard
 setxkbmap -layout "ca(multi)" &
 

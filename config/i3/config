@@ -16,8 +16,13 @@ set $mod Mod4
 font pango:Noto Sans 10
 
 # No window title bar
-default_border pixel 2
+default_border pixel 1
 default_floating_border normal
+
+# Change borders
+bindsym $mod+u border none
+bindsym $mod+y border pixel 1
+bindsym $mod+n border normal
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -32,8 +37,9 @@ bindsym $mod+Shift+Return exec firefox
 bindsym $mod+Shift+q kill
 
 # start rofi
-bindsym $mod+d exec rofi -show run
-bindsym $mod+Shift+s rofi -show ssh
+#bindsym $mod+d exec rofi -show run
+#bindsym $mod+Shift+s rofi -show ssh
+bindsym $mod+d exec --no-startup-id dmenu_run
 
 # change focus
 bindsym $mod+h focus left
@@ -162,6 +168,9 @@ bindsym $mod+r mode "resize"
 # Only show gaps if more than one window is opened
 smart_gaps on
 
+# Only show borders if more than one window is opened
+smart_borders on
+
 # Gaps around windows
 gaps outer 0
 gaps inner 6
@@ -215,6 +224,9 @@ bar {
     tray_output primary
 }
 
+# hide/unhide i3status bar
+bindsym $mod+m bar mode toggle
+
 # Set the background image
 exec_always --no-startup-id feh --bg-fill /mnt/gottingen/pictures/bd8ad237_rGYCoM.jpeg
 
@@ -224,8 +236,15 @@ exec --no-startup-id pasystray
 # Launch NetworkManager systray
 exec --no-startup-id nm-applet
 
-# Matplotlib windows should be floating
+# Open specific applications in floating mode
 for_window [class="Matplotlib"] floating enable
+for_window [class="Clipgrab"] floating enable
+for_window [title="File Transfer*"] floating enable
+for_window [class="Lxappearance"] floating enable sticky enable border normal
+for_window [class="Pamac-manager"] floating enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="(?i)System-config-printer.py"] floating enable border normal
+for_window [class="(?i)virtualbox"] floating enable border normal
 
 # Lock screen
 bindsym $mod+Shift+x exec --no-startup-id i3lock -c "$base01"
