@@ -1,3 +1,7 @@
+" Proper filetype for LaTeX
+let g:tex_flavor = "latex"
+let g:LatexBox_quickfix = 4
+
 " Only two spaces of indentation for LaTeX files
 setlocal shiftwidth=2
 setlocal tabstop=2

@@ -1,8 +1,5 @@
-" Break backward compatibility with vi
-set nocompatible
-
-" Avoid some security issues with modelines
-set nomodeline
+set nocompatible   " Break backward compatibility with vi
+set nomodeline     " Avoid some security issues with modelines
 
 " Vundle package management {{{
 filetype off
@@ -16,11 +13,8 @@ Plugin 'LaTeX-Box-Team/LaTeX-Box'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jamessan/vim-gnupg'
-Plugin 'joshdick/onedark.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'w0ng/vim-hybrid'
-Plugin 'PProvost/vim-ps1.git'
-Plugin 'tomasr/molokai'
 Plugin 'morhetz/gruvbox'
 call vundle#end()
 " }}}
@@ -32,26 +26,23 @@ syntax enable
 
 " General options {{{
 """""""""""""""""
-set hidden         " hide file instead of closing it
-set autoread       " reread file automatically if modified outside of Vim
-set autowrite      " write file automatically upon some actions (see help)
-set history=1000   " longer history
-set encoding=utf-8 " default encoding
-set vb t_vb=       " Disable the bell
-set wildignore=*.pyc,*.bak  " Ignore these patterns in filename completions
-set path=**        " Search all files in current directory
-set ff=unix        " Always use Unix line endings
+set hidden                      " Hide file instead of closing it
+set autoread                    " Reread file automatically if modified outside of Vim
+set autowrite                   " Write file automatically upon some actions (see help)
+set history=1000                " Longer history
+set encoding=utf-8              " Default encoding
+set visualbell t_vb=            " Disable the bell
+set path=**                     " Search all files in current directory
+set backspace=indent,eol,start  " Backspace for dummies
 " }}}
 
 " Vim UI {{{
 """"""""
-set backspace=indent,eol,start  " Backspace for dummies
-set showmatch                   " highlight matching parentheses
-set wildmenu                    " show command auto-completion matches in status line
-set wildmode=list:longest,full  " command <Tab> completion, list matches, then longest common part, then all.
-set scrolloff=5    " minimum number of lines above or below cursor
-set scrolljump=5   " lines to scroll when cursor leaves screen
-set number
+set showmatch                   " Highlight matching parentheses
+set wildmenu                    " Show command auto-completion matches in status line
+set wildmode=list:longest,full  " Command completion, list matches, then longest common part, then all.
+set wildignore=*.pyc,*.bak      " Ignore these patterns in filename completions
+set number                      " Show line numbers
 
 " Colors
 if has("gui_running")
@@ -63,7 +54,7 @@ if has("gui_running")
 else
     set t_Co=256  " I can do 256 colors!
     set bg=dark
-    colorscheme hybrid
+    "colorscheme hybrid
 endif
 
 " Font for Mac, Windows and Linux
@@ -71,7 +62,6 @@ if has("mac")
     set guifont=Monaco:h13
     set guioptions+=m  " Menu bar in mac OS
 elseif has("gui_win32")
-    "set guifont=Hack:h10.5
     set guifont=DejaVu_Sans_Mono:h11
 else
     set guifont=Noto\ Sans\ Mono\ 11
@@ -80,15 +70,6 @@ endif
 " Show hidden characters
 set listchars=tab:▸\ ,eol:¬,trail:⋅,nbsp:␣
 
-" Change cursor shape in terminal
-let &t_SI = "\e[6 q"
-let &t_EI = "\e[2 q"
-
-" optional reset cursor on start:
-augroup myCmds
-    au!
-    autocmd VimEnter * silent !echo -ne "\e[2 q"
-augroup END
 " }}}
 
 " Persistent undo {{{
@@ -102,7 +83,7 @@ endif
 
 " Backups {{{
 """""""""
-set backup                       " enable backups
+set backup
 set noswapfile
 set undodir=$HOME/.vim/tmp/undo/
 set backupdir=$HOME/.vim/tmp/backup/
@@ -118,28 +99,24 @@ set smartcase
 
 " Formatting {{{
 """"""""""""
-set nowrap         " do not wrap long lines
-set autoindent     " indent at the same level of the previous line
-set tabstop=4      " use four spaces for tabs
+set nowrap         " Do not wrap long lines
+set autoindent     " Indent at the same level of the previous line
+set tabstop=4      " Use four spaces for tabs
 set shiftwidth=4
 set softtabstop=4
-set expandtab      " spaces, not tabs
-set textwidth=79   " wrap lines after 79 characters
+set expandtab      " Spaces, not tabs
+set textwidth=79   " Wrap lines after 79 characters
 " }}}
 
 " Key mappings {{{
 """"""""""""""
-" Use comma instead of \ for leader
-let mapleader=","
+let mapleader=","  " Use comma instead of \ for leader
 
 " To normal mode with jk
 inoremap jk <Esc>
 
 " One less keystroke to enter commands
 nnoremap ; :
-
-" Toggle search highlighting
-nnoremap <silent> <leader>hs :set invhlsearch<CR>
 
 " Yank to end of line with Y
 nnoremap Y y$
@@ -152,15 +129,18 @@ nnoremap k gk
 vnoremap < <gv
 vnoremap > >gv
 
-" Upper/lowercase a word
-nnoremap <leader>u mQviwU`Q
-nnoremap <leader>l mQviwu`Q
-
 " Close/open folds with space
 nnoremap <space> za
 
 " Move between matching brackets with tab in normal mode
 nnoremap <tab> <s-%>
+
+" Toggle search highlighting
+nnoremap <silent> <leader>hs :set invhlsearch<CR>
+
+" Upper/lowercase a word
+nnoremap <leader>u mQviwU`Q
+nnoremap <leader>l mQviwu`Q
 
 " Switch to previous buffer
 nnoremap <leader>b :b#<CR>
@@ -169,13 +149,15 @@ nnoremap <leader>b :b#<CR>
 nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
 nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
 
-" Toggle spell checking
-nnoremap <F1> :set spell!<CR>
+" Spell checking
+nnoremap <leader>st :set spell!<CR>
+nnoremap <leader>sf :set spelllang=fr<CR>
+nnoremap <leader>se :set spelllang=en<CR>
 
 " Toggle numbering and fold column on and off.
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
 
-" Press <F3> to delete all trailing spaces in a file.
+" Delete all trailing spaces in a file.
 nnoremap <silent> <F3> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
 " Fugitive plugin keymaps
@@ -190,58 +172,6 @@ noremap <leader>n :NERDTreeToggle<CR>
 
 " Go to tag for non US keyboard is broken. Use leader + t instead.
 nnoremap <leader>t <C-]>
-
-" }}}
-
-" Completion {{{
-""""""""""""
-" Enable omni completion.
-augroup omnigroup
-    autocmd!
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-augroup END
-" }}}
-
-" Filetype specific options {{{
-"""""""""""""""""""""""""""
-" Proper filetype for LaTeX
-let g:tex_flavor = "latex"
-let g:LatexBox_quickfix = 4
-
-" Markdown
-augroup markdownmd
-    autocmd!
-    autocmd BufNewFile,BufRead *.md set ft=markdown
-augroup END
-let g:markdown_fenced_languages = ["css", "python", "c", "cpp", "sh", "tex", "r", "javascript"]
-
-" Use free format Fortran (yay 21st century)
-let fortran_free_source=1
-
-" Fold on marker in vimscript files
-augroup filetype_vim
-    autocmd!
-    autocmd Filetype vim setlocal foldmethod=marker
-augroup END
-
-" Fold functions in python files
-augroup filetype_python
-    autocmd!
-    autocmd Filetype python setlocal foldmethod=indent
-    autocmd Filetype python setlocal foldnestmax=2
-augroup END
-
-" Smaller indentation for some files
-augroup smallindent
-    autocmd!
-    autocmd Filetype r,c,cpp,html,js setlocal tabstop=2
-    autocmd Filetype r,c,cpp,html,js setlocal shiftwidth=2
-    autocmd Filetype r,c,cpp,html,js setlocal softtabstop=2
-augroup END
 
 " }}}
 
@@ -273,10 +203,6 @@ function! SetGPGOptions()
 " Only open folds with insert commands.
     set foldopen=insert
 endfunction
-" }}}
-
-" Pandoc mode {{{
-let g:pandoc#formatting#mode = "ha"
 " }}}
 
 " NERDTree {{{
