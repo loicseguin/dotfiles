@@ -1,0 +1,9 @@
+#!/bin/sh
+
+case "$BLOCK_BUTTON" in
+    1) cmus-remote --pause ;;
+    2) cmus-remote --prev ;;
+    3) cmus-remote --next ;;
+esac
+
+cmus-remote -Q | awk '/tag artist /{$1=$2=""; printf "%s ", substr($0,3) }; /tag title /{$1=$2=""; print "- " substr($0,3) }'
