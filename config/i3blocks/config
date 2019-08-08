@@ -29,11 +29,11 @@ separator_block_width=15
 markup=none
 
 # Volume
-[volume]
-command=$HOME/.config/i3blocks/volume
-label=VOL
-interval=once
-signal=10
+#[volume]
+#command=$HOME/.config/i3blocks/volume
+#label=VOL
+#interval=once
+#signal=10
 
 # Mediaplayer
 [mediaplayer]
@@ -41,6 +41,19 @@ command=$HOME/.config/i3blocks/musicplayer
 label=♪
 interval=5
 signal=10
+
+# Graphics card
+[gpu_temp]
+command=echo "$(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader)°C"
+label=GPU ͏ 
+separator=false
+interval=10
+
+[gpu_fan]
+command=nvidia-smi --query-gpu=fan.speed --format=csv,noheader
+label=GPU ͏͏ 
+separator=false
+interval=10
 
 # Memory usage
 [memory]

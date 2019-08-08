@@ -32,6 +32,6 @@ nvidia-settings --load-config-only &
 unclutter &
 
 # Enable compositing
-compton -f &
+compton -c &
 
 exec i3
