@@ -58,6 +58,7 @@ endif
 " Backups {{{
 """""""""
 set backup
+let &backupdir = stdpath('data') . '/backup'
 " }}}
 
 " Formatting {{{
