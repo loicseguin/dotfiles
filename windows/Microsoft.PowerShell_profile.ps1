@@ -1,8 +1,5 @@
 # Use UTF8 character encoding
 $OutputEncoding = New-Object -typename System.Text.UTF8Encoding
-[Console]::OutputEncoding = New-Object -typename System.Text.UTF8Encoding
-$env:LC_ALL='en_US.UTF-8'
-$env:LANG='en_US.UTF-8'
 
 # Remove some insane PowerShell aliases that interfere with real programs.
 if (test-path alias:\curl) {Remove-Item alias:\curl}
@@ -32,10 +29,15 @@ Set-Alias cta go_cta
 function go_nyb {Set-Location D:\teach\203-nyb-electricite-magnetisme}
 Set-Alias nyb go_nyb
 
-# Set the prompt to something useful
-function prompt {
-    $cdarkred = [ConsoleColor]::Green
+function go_cea {Set-Location D:\teach\203-cea-astro}
+Set-Alias cea go_cea
 
-    Write-Host "$($executionContext.SessionState.Path.CurrentLocation)" -f $cdarkred
-    Write-Output "$('>' * ($nestedPromptLevel + 1)) "
-}
+Set-Alias nvi nvim-qt
+
+# Set the prompt to something useful
+#function prompt {
+    #$greencolor = [ConsoleColor]::Green
+
+    #Write-Host "$($executionContext.SessionState.Path.CurrentLocation)" -f $greencolor
+    #Write-Output "$('>' * ($nestedPromptLevel + 1)) "
+#}

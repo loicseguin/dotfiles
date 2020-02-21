@@ -1,28 +1,20 @@
-set nocompatible   " Break backward compatibility with vi
-set nomodeline     " Avoid some security issues with modelines
-
-" Vundle package management {{{
-filetype off
-set rtp+=$HOME/vimfiles/bundle/Vundle.vim
-call vundle#begin()
-
-" List of bundles to use
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'LaTeX-Box-Team/LaTeX-Box'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
-Plugin 'jamessan/vim-gnupg'
-Plugin 'itchyny/lightline.vim'
-Plugin 'w0ng/vim-hybrid'
-Plugin 'morhetz/gruvbox'
-Plugin 'joshdick/onedark.vim'
-call vundle#end()
-" }}}
-
-" Syntax highlighting, indentation and automatic file type recognition {{{
-filetype plugin indent on
-syntax enable
+" The base directory for neovim config is
+"     :echo stdpath('config')
+"
+" The base directory for neovim data is
+"     :echo stdpath('data')
+"
+" vim-plug package management {{{
+call plug#begin(stdpath('data') . '/plugged')
+Plug 'tpope/vim-fugitive'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'itchyny/lightline.vim'
+Plug 'jamessan/vim-gnupg'
+Plug 'w0ng/vim-hybrid'
+Plug 'morhetz/gruvbox'
+Plug 'joshdick/onedark.vim'
+call plug#end()
 " }}}
 
 " General options {{{
@@ -33,43 +25,21 @@ set autowrite                   " Write file automatically upon some actions (se
 set history=1000                " Longer history
 set encoding=utf-8              " Default encoding
 set visualbell t_vb=            " Disable the bell
-set path=**                     " Search all files in current directory
-set backspace=indent,eol,start  " Backspace for dummies
+set splitbelow                  " New vertical split below current windows
+set splitright                  " New horizontal split right of current windows
 " }}}
 
 " Vim UI {{{
 """"""""
 set showmatch                   " Highlight matching parentheses
-set wildmenu                    " Show command auto-completion matches in status line
-set wildmode=list:longest,full  " Command completion, list matches, then longest common part, then all.
-set wildignore=*.pyc,*.bak      " Ignore these patterns in filename completions
 set number                      " Show line numbers
-set laststatus=2                " Show status line
-set noshowmode                  " Don't show mode since it is in status line
-let g:lightline = {'colorscheme': 'one'}
 
 " Colors
-if has("gui_running")
-    set background=dark
-    colorscheme onedark
-    set guioptions-=rL " Disable scrollbars
-    set guioptions-=T  " Disable toolbar
-    set guioptions-=m  " Disable menubar
-else
-    set t_Co=256  " I can do 256 colors!
-    set bg=dark
-    "colorscheme hybrid
-endif
+let g:lightline = {'colorscheme': 'one'}
+colorscheme onedark
 
 " Font for Mac, Windows and Linux
-if has("mac")
-    set guifont=Monaco:h13
-    set guioptions+=m  " Menu bar in mac OS
-elseif has("gui_win32")
-    set guifont=Consolas:h11
-else
-    set guifont=Noto\ Sans\ Mono\ 11
-endif
+set guifont=Consolas:h11
 
 " Show hidden characters
 set listchars=tab:▸\ ,eol:¬,trail:⋅,nbsp:␣
@@ -88,17 +58,6 @@ endif
 " Backups {{{
 """""""""
 set backup
-set noswapfile
-set undodir=$HOME/vimfiles/tmp/undo/
-set backupdir=$HOME/vimfiles/tmp/backup/
-" }}}
-
-" Search options {{{
-""""""""""""""""
-set incsearch
-set hlsearch
-set ignorecase
-set smartcase
 " }}}
 
 " Formatting {{{
@@ -115,6 +74,10 @@ set textwidth=79   " Wrap lines after 79 characters
 " Key mappings {{{
 """"""""""""""
 let mapleader=","  " Use comma instead of \ for leader
+
+" Save
+nnoremap <C-s> :w<CR>
+inoremap <C-s> <Esc>:w<CR>a
 
 " Better navigation between split windows
 nnoremap <C-j> <C-W><C-j>
@@ -159,7 +122,7 @@ nnoremap <leader>b :b#<CR>
 nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
 nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
 
-" Spell checking
+" Spell checking (word checking)
 nnoremap <leader>st :set spell!<CR>
 nnoremap <leader>sf :set spelllang=fr<CR>
 nnoremap <leader>se :set spelllang=en<CR>
@@ -182,6 +145,12 @@ noremap <leader>n :NERDTreeToggle<CR>
 
 " Go to tag for non US keyboard is broken. Use leader + t instead.
 nnoremap <leader>t <C-]>
+
+" Esc to normal mode in terminal
+tnoremap <Esc> <C-\><C-n>
+
+" Create new terminal as horizontal split
+nnoremap <F1> :split<CR> :terminal<CR> :resize 15<CR>i
 
 " }}}
 
@@ -222,3 +191,35 @@ let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 
 "}}}
+
+" Send to terminal {{{
+"set shell=powershell
+augroup Terminal
+    au!
+    au TermOpen * let g:last_terminal_job_id = b:terminal_job_id
+augroup END
+
+function! REPLSend(lines)
+    call jobsend(g:last_terminal_job_id, add(a:lines, ''))
+endfunction
+
+function! s:get_visual_selection()
+    " Why is this not a built-in Vim script function?!
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+    if len(lines) == 0
+        return ''
+    endif
+    let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+    let lines[0] = lines[0][column_start - 1:]
+    return join(lines, "\n")
+endfunction
+
+command! REPLSendLine call REPLSend([getline('.')])
+command! REPLSendSelection call REPLSend(split(s:get_visual_selection(), "\n"))
+
+nnoremap <silent> <S-Enter> :REPLSendLine<CR>+
+inoremap <silent> <S-Enter> <Esc>:REPLSendLine<CR>o
+vnoremap <silent> <S-Enter> :<C-u>REPLSendSelection<CR>
+" }}}

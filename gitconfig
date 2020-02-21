@@ -6,6 +6,7 @@
     co = checkout
 [core]
 	editor = vim
+	sshCommand = C:/Windows/System32/OpenSSH/ssh.exe
 [color]
 	ui = true
 [push]
