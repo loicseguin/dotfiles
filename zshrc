@@ -20,7 +20,7 @@ zstyle ':vcs_info:*' formats "  %{$fg_no_bold[magenta]%}%s:%b%u%c%{$reset_color%
 zstyle ':vcs_info:*' actionformats " [%s|%a:%{$fg[red]%}%b%{$fg[yellow]%}%u%c%{$reset_color%}]"
 
 PROMPT=$'%{$fg_no_bold[yellow]%}%n  %{$fg[green]%}%~%{$reset_color%}${vcs_info_msg_0_}
-%{$fg[bg-black]%}∰  %{$reset_color%}'
+%{$fg[bg-black]%}$  %{$reset_color%}'
 
 # Only gentle corrections suggested
 setopt correct
@@ -78,7 +78,7 @@ bindkey "\e[3~" delete-char
 export EDITOR="vim"
 
 # Still use emacs-style zsh bindings
-bindkey -e
+#bindkey -e
 
 # Colorful man pages
 export LESS_TERMCAP_mb=$'\e[01;31m'
@@ -90,8 +90,7 @@ export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[01;32m'
 
 # Colorful grep results
-export GREP_OPTIONS='--color=auto'
-export GREP_COLOR='1;32'
+alias grep='grep --color=auto'
 
 # Colorful ls
 case $OSTYPE in
@@ -178,8 +177,8 @@ alias ipn="jupyter notebook"
 alias ijulia="jupyter notebook --profile julia"
 
 # Add tty info for vim-gnupg to work properly
-GPG_TTY=`tty`
-export GPG_TTY
+#GPG_TTY=`tty`
+#export GPG_TTY
 
 # Make new tab in same directory requires the following hack in zsh.
 #precmd () {print -Pn "\e]2; %~/ \a"}
