@@ -1,28 +1,20 @@
 set nocompatible   " Break backward compatibility with vi
 set nomodeline     " Avoid some security issues with modelines
 
-" Vundle package management {{{
-filetype off
-set rtp+=$HOME/vimfiles/bundle/Vundle.vim
-call vundle#begin()
-
+" vim-plug package management {{{
+call plug#begin('~/vimfiles/plugged')
 " List of bundles to use
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'LaTeX-Box-Team/LaTeX-Box'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
-Plugin 'jamessan/vim-gnupg'
-Plugin 'itchyny/lightline.vim'
-Plugin 'w0ng/vim-hybrid'
-Plugin 'morhetz/gruvbox'
-Plugin 'joshdick/onedark.vim'
-call vundle#end()
-" }}}
-
-" Syntax highlighting, indentation and automatic file type recognition {{{
-filetype plugin indent on
-syntax enable
+Plug 'tpope/vim-fugitive'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'jamessan/vim-gnupg'
+Plug 'itchyny/lightline.vim'
+Plug 'w0ng/vim-hybrid'
+Plug 'morhetz/gruvbox'
+Plug 'joshdick/onedark.vim'
+Plug 'LaTeX-Box-Team/LaTeX-Box'
+Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+call plug#end()
 " }}}
 
 " General options {{{
@@ -46,19 +38,21 @@ set wildignore=*.pyc,*.bak      " Ignore these patterns in filename completions
 set number                      " Show line numbers
 set laststatus=2                " Show status line
 set noshowmode                  " Don't show mode since it is in status line
-let g:lightline = {'colorscheme': 'one'}
+let g:lightline = {'colorscheme': 'material'}
 
 " Colors
 if has("gui_running")
     set background=dark
-    colorscheme onedark
+    let g:material_terminal_italics = 1
+    let g:material_theme_style = 'default'
+    colorscheme material
     set guioptions-=rL " Disable scrollbars
     set guioptions-=T  " Disable toolbar
     set guioptions-=m  " Disable menubar
 else
     set t_Co=256  " I can do 256 colors!
     set bg=dark
-    "colorscheme hybrid
+    colorscheme gruvbox
 endif
 
 " Font for Mac, Windows and Linux
@@ -70,6 +64,7 @@ elseif has("gui_win32")
 else
     set guifont=Noto\ Sans\ Mono\ 11
 endif
+set linespace=3
 
 " Show hidden characters
 set listchars=tab:▸\ ,eol:¬,trail:⋅,nbsp:␣
@@ -123,7 +118,7 @@ nnoremap <C-l> <C-W><C-l>
 nnoremap <C-h> <C-W><C-h>
 
 " To normal mode with jk
-inoremap jk <Esc>
+"inoremap jk <Esc>
 
 " One less keystroke to enter commands
 nnoremap ; :
@@ -171,8 +166,8 @@ nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
 nnoremap <silent> <F3> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
 " Fugitive plugin keymaps
-nnoremap <silent> <leader>gs :Gstatus<CR>
-nnoremap <silent> <leader>gc :Gcommit<CR>
+nnoremap <silent> <leader>gs :Git<CR>
+nnoremap <silent> <leader>gc :Git commit<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
 nnoremap <silent> <leader>gl :Glog<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
