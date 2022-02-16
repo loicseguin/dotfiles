@@ -35,11 +35,13 @@ set showmatch                   " Highlight matching parentheses
 set number                      " Show line numbers
 
 " Colors
-let g:lightline = {'colorscheme': 'one'}
-colorscheme onedark
+let g:lightline = {'colorscheme': 'seoul256'}
+colorscheme gruvbox
+highlight Normal ctermbg=none
+highlight NonText ctermbg=none
 
 " Font for Mac, Windows and Linux
-set guifont=Consolas:h11
+"set guifont=Noto Mono:h11
 
 " Show hidden characters
 set listchars=tab:▸\ ,eol:¬,trail:⋅,nbsp:␣
