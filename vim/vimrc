@@ -2,7 +2,7 @@ set nocompatible   " Break backward compatibility with vi
 set nomodeline     " Avoid some security issues with modelines
 
 " vim-plug package management {{{
-call plug#begin('~/vimfiles/plugged')
+call plug#begin()
 " List of bundles to use
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdcommenter'
@@ -38,14 +38,14 @@ set wildignore=*.pyc,*.bak      " Ignore these patterns in filename completions
 set number                      " Show line numbers
 set laststatus=2                " Show status line
 set noshowmode                  " Don't show mode since it is in status line
-let g:lightline = {'colorscheme': 'material'}
+let g:lightline = {'colorscheme': 'seoul256'}
 
 " Colors
 if has("gui_running")
     set background=dark
-    let g:material_terminal_italics = 1
-    let g:material_theme_style = 'default'
-    colorscheme material
+    "let g:material_terminal_italics = 1
+    "let g:material_theme_style = 'default'
+    colorscheme gruvbox
     set guioptions-=rL " Disable scrollbars
     set guioptions-=T  " Disable toolbar
     set guioptions-=m  " Disable menubar
@@ -55,7 +55,7 @@ else
     colorscheme gruvbox
 endif
 
-" Font for Mac, Windows and Linux
+" Fonts
 if has("mac")
     set guifont=Monaco:h13
     set guioptions+=m  " Menu bar in mac OS
@@ -84,8 +84,13 @@ endif
 """""""""
 set backup
 set noswapfile
-set undodir=$HOME/vimfiles/tmp/undo/
-set backupdir=$HOME/vimfiles/tmp/backup/
+if has("win32") || has("win64")
+    set undodir=$HOME/vimfiles/tmp/undo/
+    set backupdir=$HOME/vimfiles/tmp/backup/
+else
+    set undodir=$HOME/.vim/tmp/undo/
+    set backupdir=$HOME/.vim/tmp/backup/
+endif
 " }}}
 
 " Search options {{{
