@@ -2,7 +2,7 @@ set nocompatible   " Break backward compatibility with vi
 set nomodeline     " Avoid some security issues with modelines
 
 " vim-plug package management {{{
-call plug#begin('~/.vim/plugged')
+call plug#begin()
 " List of bundles to use
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdcommenter'
@@ -59,7 +59,7 @@ else
     let g:lightline = {'colorscheme': 'seoul256'}
 endif
 
-" Font for Mac, Windows and Linux
+" Fonts
 if has("mac")
     set guifont=Monaco:h12
     set guioptions+=m  " Menu bar in mac OS
@@ -88,8 +88,13 @@ endif
 """""""""
 set backup
 set noswapfile
-set undodir=$HOME/.vim/tmp/undo/
-set backupdir=$HOME/.vim/tmp/backup/
+if has("win32") || has("win64")
+    set undodir=$HOME/vimfiles/tmp/undo/
+    set backupdir=$HOME/vimfiles/tmp/backup/
+else
+    set undodir=$HOME/.vim/tmp/undo/
+    set backupdir=$HOME/.vim/tmp/backup/
+endif
 " }}}
 
 " Search options {{{

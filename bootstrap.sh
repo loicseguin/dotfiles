@@ -62,8 +62,7 @@ install_vim() {
             ;;
         linux*)
             # Install vim and gvim
-            check_install vim
-            check_install vim-gtk
+            check_install vim-gtk3
             ;;
         *)
             echo "You're using some weird OS, install vim yourself."
@@ -84,18 +83,18 @@ ln -Ffs $DOTDIR/gitconfig $HOME/.gitconfig
 ln -Ffs $DOTDIR/vim $HOME/.vim
 ln -Ffs $DOTDIR/vim/vimrc $HOME/.vimrc
 mkdir -p $DOTDIR/vim/bundle
-mkdir -p $DOTDIR/vim/tmp/backup
-mkdir -p $DOTDIR/vim/tmp/undo
+mkdir -p $DOTDIR/vim/tmp/{backup,undo}
 install_vim
 # Get all plugins
-git clone https://github.com/gmarik/Vundle.vim.git $DOTDIR/vim/bundle/Vundle.vim
-vim +BundleInstall +q +q
+curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs \
+	https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+vim +PlugInstall +qa
 
 # LaTeX
-ln -Ffs $DOTDIR/latexmkrc $HOME/.latexmkrc
+#ln -Ffs $DOTDIR/latexmkrc $HOME/.latexmkrc
 
 # Zsh
-ln -Ffs $DOTDIR/zshrc $HOME/.zshrc
-check_install zsh
-chsh -s `command -v zsh`
-touch $HOME/.hushlogin  # Silence! (no "Last login on ..." message)
+#ln -Ffs $DOTDIR/zshrc $HOME/.zshrc
+#check_install zsh
+#chsh -s `command -v zsh`
+#touch $HOME/.hushlogin  # Silence! (no "Last login on ..." message)

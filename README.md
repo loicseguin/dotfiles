@@ -4,12 +4,9 @@ These dot files include configurations for the following software I use on a
 regular basis:
 
 - git
-- mercurial
 - vim
-- matplotlib
 - zsh
 - latexmk
-- gem
 
 ## Bootstraping
 
