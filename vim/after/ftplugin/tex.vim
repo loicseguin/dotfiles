@@ -16,6 +16,7 @@ imap <buffer> ]] <Plug>LatexCloseCurEnv
 nmap <buffer> <F5> <Plug>LatexChangeEnv
 vmap <buffer> <F7> <Plug>LatexWrapSelection
 vmap <buffer> <S-F7> <Plug>LatexEnvWrapSelection
+nnoremap <silent> <leader>m :!pdflatex -shell-escape  %<CR>
 
 " LaTeX-Box configuration
 let g:LatexBox_latexmk_async=1                " Run compilation in background

@@ -2,7 +2,7 @@ set nocompatible   " Break backward compatibility with vi
 set nomodeline     " Avoid some security issues with modelines
 
 " vim-plug package management {{{
-call plug#begin('~/vimfiles/plugged')
+call plug#begin('~/.vim/plugged')
 " List of bundles to use
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdcommenter'
@@ -14,6 +14,9 @@ Plug 'morhetz/gruvbox'
 Plug 'joshdick/onedark.vim'
 Plug 'LaTeX-Box-Team/LaTeX-Box'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'vim-pandoc/vim-rmarkdown'
 call plug#end()
 " }}}
 
@@ -38,14 +41,14 @@ set wildignore=*.pyc,*.bak      " Ignore these patterns in filename completions
 set number                      " Show line numbers
 set laststatus=2                " Show status line
 set noshowmode                  " Don't show mode since it is in status line
-let g:lightline = {'colorscheme': 'material'}
+let g:lightline = {'colorscheme': 'seoul256'}
 
 " Colors
 if has("gui_running")
     set background=dark
-    let g:material_terminal_italics = 1
-    let g:material_theme_style = 'default'
-    colorscheme material
+    "let g:material_terminal_italics = 1
+    "let g:material_theme_style = 'default'
+    colorscheme gruvbox
     set guioptions-=rL " Disable scrollbars
     set guioptions-=T  " Disable toolbar
     set guioptions-=m  " Disable menubar
@@ -53,11 +56,12 @@ else
     set t_Co=256  " I can do 256 colors!
     set bg=dark
     colorscheme gruvbox
+    let g:lightline = {'colorscheme': 'seoul256'}
 endif
 
 " Font for Mac, Windows and Linux
 if has("mac")
-    set guifont=Monaco:h13
+    set guifont=Monaco:h12
     set guioptions+=m  " Menu bar in mac OS
 elseif has("gui_win32")
     set guifont=Consolas:h11
@@ -84,8 +88,8 @@ endif
 """""""""
 set backup
 set noswapfile
-set undodir=$HOME/vimfiles/tmp/undo/
-set backupdir=$HOME/vimfiles/tmp/backup/
+set undodir=$HOME/.vim/tmp/undo/
+set backupdir=$HOME/.vim/tmp/backup/
 " }}}
 
 " Search options {{{
