@@ -14,9 +14,9 @@ Plug 'morhetz/gruvbox'
 Plug 'joshdick/onedark.vim'
 Plug 'LaTeX-Box-Team/LaTeX-Box'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'vim-pandoc/vim-rmarkdown'
+"Plug 'vim-pandoc/vim-pandoc'
+"Plug 'vim-pandoc/vim-pandoc-syntax'
+"Plug 'vim-pandoc/vim-rmarkdown'
 call plug#end()
 " }}}
 
@@ -30,6 +30,7 @@ set encoding=utf-8              " Default encoding
 set visualbell t_vb=            " Disable the bell
 set path=**                     " Search all files in current directory
 set backspace=indent,eol,start  " Backspace for dummies
+set gdefault                    " Replace globally by default (i.e., g at the end of substitutions
 " }}}
 
 " Vim UI {{{
@@ -71,6 +72,7 @@ endif
 set linespace=3
 
 " Show hidden characters
+"set list
 set listchars=tab:▸\ ,eol:¬,trail:⋅,nbsp:␣
 
 " }}}
@@ -125,9 +127,6 @@ nnoremap <C-j> <C-W><C-j>
 nnoremap <C-k> <C-W><C-k>
 nnoremap <C-l> <C-W><C-l>
 nnoremap <C-h> <C-W><C-h>
-
-" To normal mode with jk
-"inoremap jk <Esc>
 
 " One less keystroke to enter commands
 nnoremap ; :
