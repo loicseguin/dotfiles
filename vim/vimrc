@@ -31,6 +31,7 @@ set visualbell t_vb=            " Disable the bell
 set path=**                     " Search all files in current directory
 set backspace=indent,eol,start  " Backspace for dummies
 set gdefault                    " Replace globally by default (i.e., g at the end of substitutions
+set fileignorecase              " Case insensitive for file types
 " }}}
 
 " Vim UI {{{
@@ -67,7 +68,7 @@ if has("mac")
 elseif has("gui_win32")
     set guifont=Consolas:h11
 else
-    set guifont=Noto\ Sans\ Mono\ 11
+    set guifont=monospace
 endif
 set linespace=3
 
