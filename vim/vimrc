@@ -31,7 +31,6 @@ set visualbell t_vb=            " Disable the bell
 set path=**                     " Search all files in current directory
 set backspace=indent,eol,start  " Backspace for dummies
 set gdefault                    " Replace globally by default (i.e., g at the end of substitutions
-set fileignorecase              " Case insensitive for file types
 " }}}
 
 " Vim UI {{{
@@ -40,7 +39,8 @@ set showmatch                   " Highlight matching parentheses
 set wildmenu                    " Show command auto-completion matches in status line
 set wildmode=list:longest,full  " Command completion, list matches, then longest common part, then all.
 set wildignore=*.pyc,*.bak      " Ignore these patterns in filename completions
-set number                      " Show line numbers
+set relativenumber              " Show relative line numbers
+set number                      " Show line number of current line
 set laststatus=2                " Show status line
 set noshowmode                  " Don't show mode since it is in status line
 let g:lightline = {'colorscheme': 'seoul256'}

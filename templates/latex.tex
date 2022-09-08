@@ -1,0 +1,30 @@
+\documentclass[letterpaper]{tufte-book}
+
+\usepackage[french]{babel}
+
+% Detect compiler and use appropriate packages for unicode characters.
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+
+\usepackage{amsmath, amsthm}
+\usepackage{graphicx}
+\usepackage{longtable,booktabs}
+%\usepackage{cmbright}  % sans font
+
+\title{}
+\author{Loïc Séguin-Charbonneau}
+\date{}
+
+\begin{document}
+\maketitle
+
+
+\end{document}

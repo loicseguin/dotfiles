@@ -16,7 +16,6 @@ inoremap <buffer> ]] <Plug>LatexCloseCurEnv
 nnoremap <buffer> <F5> <Plug>LatexChangeEnv
 vnoremap <buffer> <F7> <Plug>LatexWrapSelection
 vnoremap <buffer> <S-F7> <Plug>LatexEnvWrapSelection
-nnoremap <buffer> <silent> <leader>m :!pdflatex -shell-escape %<CR>
 nnoremap <buffer> <leader>tex :-1r ~/code/dotfiles/templates/latex.tex<CR>
 
 " LaTeX-Box configuration
