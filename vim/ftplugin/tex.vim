@@ -29,7 +29,7 @@ if has('mac')
 endif
 
 " Snippets
-iabbrev <buffer> $$ \[<CR>\begin{align*}X<CR>\end{align*}<CR>\]<Esc>?X<CR>:nohl<CR>xa
+iabbrev <buffer> $$ \begin{align*}X<CR>\end{align*}<Esc>?X<CR>:nohl<CR>xa
 iabbrev <buffer> derx \frac{d}{dx}
 iabbrev <buffer> fr \frac{X}{}<Esc>?X<CR>:nohl<CR>xi
 iabbrev <buffer> nck \begin{pmatrix} N \\ k \end{pmatrix}
