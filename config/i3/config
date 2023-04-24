@@ -8,7 +8,7 @@
 # is used in the bar {} block below.
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:Noto Sans 8
+font pango:NotoSans Nerd Font 9
 
 # No window title bar
 default_border pixel 2
@@ -17,7 +17,7 @@ default_border pixel 2
 smart_borders on
 
 # Gaps are nice
-gaps inner 6px
+gaps inner 0px
 gaps outer 0px
 
 
@@ -47,7 +47,7 @@ client.background       $bg
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -c "$bg" --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -55,6 +55,9 @@ exec --no-startup-id nm-applet
 
 # Bluetooth system tray
 exec --no-startup-id blueberry-tray
+
+# Picom compositor for transparency
+exec --no-startup-id picom -b
 
 # Open specific applications in floating mode
 for_window [class="Matplotlib"] floating enable border normal
@@ -68,14 +71,14 @@ set $mod Mod4
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # Use xbacklight to adjust monitor and keyboard brightness
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
 bindsym XF86KbdBrightnessDown exec --no-startup-id xbacklight -ctrl smc::kbd_backlight -dec 10
 bindsym XF86KbdBrightnessUp exec --no-startup-id xbacklight -ctrl smc::kbd_backlight -inc 10
 
@@ -85,7 +88,8 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote --prev
 bindsym XF86AudioNext exec --no-startup-id cmus-remote --next
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
+#bindsym $mod+Return exec --no-startup-id alacritty
 
 # Lock screen
 bindsym $mod+Shift+x exec --no-startup-id i3lock -c "$bg"
@@ -100,8 +104,8 @@ bindsym $mod+Shift+q kill
 # start dmenu (a program launcher)
 #bindsym $mod+d exec --no-startup-id dmenu_run
 # A more modern dmenu replacement is rofi:
-bindsym $mod+d exec "rofi -modi drun,run,window -show drun"
-bindsym $mod+Tab exec "rofi -modi window,filebrowser -show window"
+bindsym $mod+d exec --no-startup-id "rofi -modi drun,run,window -show drun"
+bindsym $mod+Tab exec --no-startup-id "rofi -modi window,filebrowser -show window"
 
 # change focus
 bindsym $mod+h focus left
@@ -222,7 +226,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 
 ## MOUSE ##
@@ -243,7 +247,7 @@ bar {
     position top
     colors {
         background $bg
-        separator  $grey
+        separator  $darkgray
         statusline $grey
 
         # State             Border  BG      Text
@@ -255,4 +259,3 @@ bar {
     }
     status_command i3status
 }
-

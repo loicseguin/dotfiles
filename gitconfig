@@ -8,3 +8,5 @@
     editor = nvim
 [color]
     ui = true
+[init]
+	defaultBranch = main

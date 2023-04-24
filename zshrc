@@ -14,19 +14,23 @@ compinit
 colors
 # End of lines added by compinstall
 
-# Add git status to prompt
-autoload -Uz vcs_info
-setopt prompt_subst
-precmd () { vcs_info }
-zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' stagedstr ':✔'
-zstyle ':vcs_info:*' unstagedstr ':✘'
-zstyle ':vcs_info:*' formats "  %{$fg_no_bold[magenta]%}%s:%b%u%c%{$reset_color%}"
-zstyle ':vcs_info:*' actionformats " [%s|%a:%{$fg[red]%}%b%{$fg[yellow]%}%u%c%{$reset_color%}]"
+# PROMPT
 
-PROMPT=$'%{$fg_no_bold[yellow]%}%n  %{$fg[green]%}%~%{$reset_color%}${vcs_info_msg_0_}
-%{$fg[bg-black]%}$  %{$reset_color%}'
+eval "$(starship init zsh)"
+
+# Add git status to prompt
+#autoload -Uz vcs_info
+#setopt prompt_subst
+#precmd () { vcs_info }
+#zstyle ':vcs_info:*' enable git
+#zstyle ':vcs_info:*' check-for-changes true
+#zstyle ':vcs_info:*' stagedstr ':✔'
+#zstyle ':vcs_info:*' unstagedstr ':✘'
+#zstyle ':vcs_info:*' formats "  %{$fg_no_bold[magenta]%}%s:%b%u%c%{$reset_color%}"
+#zstyle ':vcs_info:*' actionformats " [%s|%a:%{$fg[red]%}%b%{$fg[yellow]%}%u%c%{$reset_color%}]"
+
+#PROMPT=$'%{$fg_no_bold[yellow]%}%n  %{$fg[green]%}%~%{$reset_color%}${vcs_info_msg_0_}
+#%{$fg[bg-black]%}$  %{$reset_color%}'
 
 ## OTHER ENVIRONMENT VARIABLES ##
 
@@ -56,6 +60,9 @@ case $OSTYPE in
 esac
 
 ## ALIASES ##
+
+# helix
+alias hx="helix"
 
 # ls
 alias lr="ls -1r"
@@ -88,3 +95,8 @@ compdef _git glgg=git-log
 alias ga='git add'
 compdef _git ga=git-add
 alias grh='git reset HEAD'
+
+# show images in kitty terminal
+alias icat="kitten icat"
+
+[ -f "/home/lsc/.ghcup/env" ] && source "/home/lsc/.ghcup/env" # ghcup-env

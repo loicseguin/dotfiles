@@ -31,7 +31,7 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 # Set Canadian multilingual keyboard
-setxkbmap -layout "ca" -variant "multix" -option "ctrl:nocaps" &
+setxkbmap -layout ca,us -variant multix, -option "grp:alt_altgr_toggle" -option "ctrl:nocaps" -option "lv3:lalt_switch" &
 
 # Set keyboard repeat rate
 # First number is delay in milliseconds before repetition starts, second number
@@ -40,8 +40,5 @@ xset r rate 220 40 &
 
 # Desktop wallpaper
 ~/.fehbg &
-
-# Enable compositing
-picom -c &
 
 exec i3
