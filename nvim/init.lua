@@ -46,6 +46,7 @@ vim.o.softtabstop = 4
 vim.o.expandtab = true
 
 -- Make line numbers default
+vim.o.number = true
 vim.wo.relativenumber = true
 
 -- Enable mouse mode
