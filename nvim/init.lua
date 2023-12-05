@@ -119,7 +119,7 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 
 -- Colors and UI
-vim.cmd.colorscheme "catppuccin"
+vim.cmd.colorscheme "gruvbox-material"
 
 
 -- vim-gnupg setup
