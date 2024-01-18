@@ -135,7 +135,7 @@ map('v', '<', '<gv')
 map('v', '>', '>gv')
 
 -- Buffer navigation
-map('n', '<leader>ba', ':b#<CR>', { desc = 'Goto alternate buffer' })
+map('n', '<leader>bb', ':b#<CR>', { desc = 'Goto alternate buffer' })
 map('n', '<leader>bp', ':bp<CR>', { desc = 'Goto previous buffer' })
 map('n', '<leader>bn', ':bn<CR>', { desc = 'Goto next buffer' })
 map('n', '<leader>bd', ':bn<CR>', { desc = 'Delete buffer' })

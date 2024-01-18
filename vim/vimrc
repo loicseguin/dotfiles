@@ -1,28 +1,16 @@
 set nocompatible   " Break backward compatibility with vi
 set nomodeline     " Avoid some security issues with modelines
 
-" vim-plug package management {{{
-call plug#begin()
-" List of bundles to use
-Plug 'tpope/vim-fugitive'
-Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree'
-Plug 'jamessan/vim-gnupg'
-Plug 'itchyny/lightline.vim'
-Plug 'w0ng/vim-hybrid'
-Plug 'morhetz/gruvbox'
-Plug 'joshdick/onedark.vim'
-Plug 'LaTeX-Box-Team/LaTeX-Box'
-Plug 'kaicataldo/material.vim', { 'branch': 'main' }
-"Plug 'vim-pandoc/vim-pandoc'
-"Plug 'vim-pandoc/vim-pandoc-syntax'
-"Plug 'vim-pandoc/vim-rmarkdown'
-call plug#end()
+filetype plugin indent on
+syntax enable
+
+" vim package management {{{
+packadd! gruvbox-material
+set rtp+=/opt/homebrew/opt/fzf
 " }}}
 
 " General options {{{
 """""""""""""""""
-set hidden                      " Hide file instead of closing it
 set autoread                    " Reread file automatically if modified outside of Vim
 set autowrite                   " Write file automatically upon some actions (see help)
 set history=1000                " Longer history
@@ -30,7 +18,16 @@ set encoding=utf-8              " Default encoding
 set visualbell t_vb=            " Disable the bell
 set path=**                     " Search all files in current directory
 set backspace=indent,eol,start  " Backspace for dummies
-set gdefault                    " Replace globally by default (i.e., g at the end of substitutions
+set complete-=i                 " Disable completing keyword in included files
+set completeopt=menuone,noselect
+set mouse=a                     " Enable mouse in all modes
+set updatetime=250
+set timeoutlen=300
+" }}}
+
+" netrw {{{
+"""""""
+let g:netrw_banner=0
 " }}}
 
 " Vim UI {{{
@@ -43,34 +40,16 @@ set relativenumber              " Show relative line numbers
 set number                      " Show line number of current line
 set laststatus=2                " Show status line
 set noshowmode                  " Don't show mode since it is in status line
-let g:lightline = {'colorscheme': 'seoul256'}
+set ruler                       " Show line/col number
+set scrolloff=4                 " Keep context visible around cursor line
 
 " Colors
-if has("gui_running")
-    set background=dark
-    "let g:material_terminal_italics = 1
-    "let g:material_theme_style = 'default'
-    colorscheme gruvbox
-    set guioptions-=rL " Disable scrollbars
-    set guioptions-=T  " Disable toolbar
-    set guioptions-=m  " Disable menubar
-else
-    set t_Co=256  " I can do 256 colors!
-    set bg=dark
-    colorscheme gruvbox
-    let g:lightline = {'colorscheme': 'seoul256'}
-endif
-
-" Fonts
-if has("mac")
-    set guifont=Monaco:h12
-    set guioptions+=m  " Menu bar in mac OS
-elseif has("gui_win32")
-    set guifont=Consolas:h11
-else
-    set guifont=monospace
-endif
-set linespace=3
+set termguicolors
+set background=dark
+let g:gruvbox_material_better_performance = 1
+let g:gruvbox_material_foreground = 'mix'
+colorscheme gruvbox-material
+let g:lightline = {'colorscheme': 'seoul256'}
 
 " Show hidden characters
 "set list
@@ -121,16 +100,17 @@ set textwidth=79   " Wrap lines after 79 characters
 
 " Key mappings {{{
 """"""""""""""
-let mapleader=","  " Use comma instead of \ for leader
+let mapleader=" "  " Use space instead of \ for leader
+
+" Set space to do nothing in normal and visual mode
+nnoremap <space> <nop>
+vnoremap <space> <nop>
 
 " Better navigation between split windows
 nnoremap <C-j> <C-W><C-j>
 nnoremap <C-k> <C-W><C-k>
 nnoremap <C-l> <C-W><C-l>
 nnoremap <C-h> <C-W><C-h>
-
-" One less keystroke to enter commands
-nnoremap ; :
 
 " Yank to end of line with Y
 nnoremap Y y$
@@ -143,36 +123,26 @@ nnoremap k gk
 vnoremap < <gv
 vnoremap > >gv
 
-" Close/open folds with space
-nnoremap <space> za
-
-" Move between matching brackets with tab in normal mode
-nnoremap <tab> <s-%>
+" Buffer navigation
+nnoremap <leader>bb :b#<CR>
+nnoremap <leader>bp :bp<CR>
+nnoremap <leader>bn :bn<CR>
+nnoremap <leader>bd :bd<CR>
 
 " Toggle search highlighting
-nnoremap <silent> <leader>hs :set invhlsearch<CR>
-
-" Upper/lowercase a word
-nnoremap <leader>u mQviwU`Q
-nnoremap <leader>l mQviwu`Q
-
-" Switch to previous buffer
-nnoremap <leader>b :b#<CR>
+nnoremap <silent> <leader>h :set invhlsearch<CR>
 
 " Quickly edit/reload vimrc file
-nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
-nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
+nnoremap <silent> <leader>ve :e $MYVIMRC<CR>
+nnoremap <silent> <leader>vs :so $MYVIMRC<CR>
 
 " Spell checking
-nnoremap <leader>st :set spell!<CR>
+nnoremap <leader>ss :set spell!<CR>
 nnoremap <leader>sf :set spelllang=fr<CR>
 nnoremap <leader>se :set spelllang=en<CR>
 
-" Toggle numbering and fold column on and off.
-nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
-
 " Delete all trailing spaces in a file.
-nnoremap <silent> <F3> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+nnoremap <silent> <leader>t :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
 " Fugitive plugin keymaps
 nnoremap <silent> <leader>gs :Git<CR>
@@ -181,18 +151,12 @@ nnoremap <silent> <leader>gd :Gdiff<CR>
 nnoremap <silent> <leader>gl :Glog<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
 
-" Toggle NERDTree
-noremap <leader>n :NERDTreeToggle<CR>
-
-" Go to tag for non US keyboard is broken. Use leader + t instead.
-nnoremap <leader>t <C-]>
+" fzf
+nnoremap <leader>f :FZF<CR>
 
 " }}}
 
 " GnuPG Extensions{{{
-
-" Use gpg
-let g:GPGExecutable="gpg"
 
 " Tell the GnuPG plugin to armor new files.
 let g:GPGPreferArmor=1
@@ -201,28 +165,16 @@ let g:GPGPreferArmor=1
 let g:GPGPreferSign=1
 
 augroup GnuPGExtra
-" Set extra file options.
+    " Set extra file options.
     autocmd BufReadCmd,FileReadCmd *.\(gpg\|asc\|pgp\) call SetGPGOptions()
-" Automatically close unmodified files after inactivity.
+    " Automatically close unmodified files after inactivity.
     autocmd CursorHold *.\(gpg\|asc\|pgp\) quit
 augroup END
 
 function! SetGPGOptions()
-" Set updatetime to 1 minute.
-    set updatetime=60000
-" Fold at markers.
-    set foldmethod=marker
-" Automatically close all folds.
-    set foldclose=all
-" Only open folds with insert commands.
-    set foldopen=insert
+    set updatetime=60000   " Set updatetime to 1 minute.
+    set foldmethod=marker  " Fold at markers.
+    set foldclose=all      " Automatically close all folds.
+    set foldopen=insert    " Only open folds with insert commands.
 endfunction
 " }}}
-
-" NERDTree {{{
-
-let NERDTreeIgnore=['\.pyc$', '__pycache__$[[dir]]']
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
-
-"}}}
