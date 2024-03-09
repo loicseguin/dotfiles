@@ -27,11 +27,19 @@ require('lazy').setup({
     {
         -- Gruvbox colorscheme
         'sainnhe/gruvbox-material',
-        priority = 1000,
+        priority = 2000,
         config = function()
             vim.g.gruvbox_material_foreground = 'mix'
             vim.cmd.colorscheme 'gruvbox-material'
         end,
+    },
+    {
+        'AlexvZyl/nordic.nvim',
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require 'nordic' .load()
+        end
     },
     {
         -- Lualine for status line
@@ -62,6 +70,23 @@ require('lazy').setup({
             },
         },
     },
+    {
+        -- Conjure for interactive development
+        'Olical/conjure',
+        ft = { 'scheme', 'clojure' },
+        config = function()
+            vim.g["conjure#client#scheme#stdio#command"] = "mechanics.sh"
+            vim.g["conjure#log#hud#enabled"] = false
+        end,
+    },
+    {
+        -- Highlight, edit and navigate code
+        'nvim-treesitter/nvim-treesitter',
+        dependencies = {
+            'nvim-treesitter/nvim-treesitter-textobjects',
+        },
+        build = ':TSUpdate',
+    },
 }, {})
 
 
@@ -87,8 +112,8 @@ vim.o.softtabstop = 4
 vim.o.expandtab = true
 
 -- Number lines and use relative numbers
-vim.o.number = true
-vim.o.relativenumber = true
+vim.o.number = false
+vim.o.relativenumber = false
 
 -- Enable mouse in all modes
 vim.o.mouse = 'a'
@@ -165,6 +190,9 @@ map(
   { silent = true, desc = 'Delete trailing spaces' }
 )
 
+-- Toggle line numbers
+map('n', '<leader>n', ':set number!<cr>:set relativenumber!<cr>', { desc = 'Toggle line numbers' })
+
 -- Diagnostic keymaps
 map('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 map('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
@@ -212,6 +240,18 @@ map('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = 'Search 
 map('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = 'Search Diagnostics' })
 map('n', '<leader>sr', require('telescope.builtin').resume, { desc = 'Search Resume' })
 
+
+-- Treesitter setup
+vim.defer_fn(function()
+    require('nvim-treesitter.configs').setup {
+        ensure_installed = { 'c', 'cpp', 'lua', 'python', 'rust', 'javascript', 'vimdoc', 'vim', 'bash' },
+        auto_install = false,
+        sync_install = false,
+        ignore_install = {},
+        highlight = { enable = true },
+        indent = { enable = true },
+    }
+end, 0)
 
 -- LSP setup
 -- ---------
