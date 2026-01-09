@@ -1,0 +1,172 @@
+\documentclass[letterpaper, DIV=11]{scrartcl}
+
+\usepackage{polyglossia}
+\setdefaultlanguage{french}
+
+\usepackage[backend=biber]{biblatex}
+\addbibresource{mybibfile.bib}
+
+\usepackage{fontspec}
+\setmainfont[Renderer=Basic, Numbers=OldStyle, Scale = 1.0]{TeX Gyre Pagella}
+\setsansfont[Renderer=Basic, Scale=0.90]{TeX Gyre Heros}
+\setmonofont[Renderer=Basic]{TeX Gyre Cursor}
+
+\setkomafont{title}{
+  \normalfont
+  \itshape
+  \rmfamily
+}
+\addtokomafont{author}{
+  \itshape
+}
+\addtokomafont{date}{
+  \itshape
+}
+\setkomafont{section}{
+  \normalfont
+  \itshape
+  \rmfamily
+  \Large
+}
+
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage[locale=FR]{siunitx}
+\usepackage{hyperref}
+
+\sisetup{
+  mode=text,
+  reset-text-family=false,
+  reset-text-series=false,
+  per-mode=symbol,
+  uncertainty-mode=separate,
+}
+
+\newcommand{\F}{\boldsymbol{\vec{F}}}
+\newcommand{\vv}{\boldsymbol{\vec{v}}}
+\newcommand{\va}{\boldsymbol{\vec{a}}}
+
+
+\title{Titre du document}
+\author{Loïc Séguin-Charbonneau}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+Ce miniguide est un aide mémoire très condensé. Si vous avez besoin
+d'explications détaillées ou de plus de détails sur les bonnes pratiques
+méthodologiques, vous pouvez consulter une des nombreuses références sur le
+sujet (par exemple,
+\cite{boisclair_page_2014,debellefeuille_ite,jcgm_2008,laflamme_2018}). Pour des
+définitions précises de tous les termes de métrologie, vous pouvez consulter le
+Vocabulaire international de métrologie \cite{vim}.
+
+
+\section*{Évaluation et propagation des incertitudes}
+
+Lorsqu'on effectue un mesurage, il est impossible de connaître exactement la
+valeur du mesurage \cite{jcgm_2008}. Il faut évaluer l'incertitude en additionnant
+l'incertitude instrumentale et l'incertitude liée au contexte.
+L'incertitude instrumentale peut être déterminée à partir de règles empiriques
+(par exemple, prendre la moitié de la plus petite division pour une lecture sur
+un instrument graduée) ou être fournie par le fabricant (par exemple, le
+fabricant d'un multimètre numérique donne un tableau détaillé pour le calcul des
+incertitudes instrumentales).
+
+On évalue les incertitudes liées au contexte en tenant compte de la méthode de
+mesure. Lorsqu'il fait cette évaluation, l'expérimentateur doit être confiant
+que la valeur du mesurande se situe dans l'intervalle définit par l'incertitude.
+Par exemple, pour un instrument à affichage numérique, si la valeur sur
+l'affichage fluctue, on peut attribuer une incertitude liée au contexte de la
+moitié de l'écart entre les valeurs extrêmes.
+
+Dans des cas simples, on peut calculer l'incertitude sur un résultat de mesurage
+composé en utilisant les règles résumées dans le
+tableau~\ref{tab:regles_simples}. Ces règles simples surestiment généralement
+l'incertitude composée, mais elles donnent le bon ordre de grandeur.
+
+\section*{Présentation des tableaux}
+
+Un tableau doit présenter les données de façon claire, concise et complète. Un
+bon tableau maximise la quantité d'information fournie en minimisant l'encre
+utilisée. Les colonnes doivent être clairement identifiées, les unités et les
+incertitudes doivent être présentes, les données doivent être écrites en
+respectant les règles d'écriture. La légende accompagnant le tableau doit
+décrire son contenu suffisamment clairement pour qu'un lecteur comprenne la
+nature des données qui y sont présentées. Les tableaux doivent être numérotés
+pour pouvoir y faire facilement référence dans le texte.
+
+Par exemple, considérons un laboratoire où on aurait mesuré la grandeur du
+champ électrique produit par une charge ponctuelle à différentes distances de
+la charge. L'expression théorique du champ électrique est
+\begin{equation}
+  \vec{E} = \frac{kq}{r^2}\vec{u}_r
+  \label{eq:champ_ponctuel}
+\end{equation}
+Le tableau \ref{tab:data_er2} montre les différentes mesures obtenues lors de
+cette expérience.
+
+\begin{table}
+  \renewcommand{\arraystretch}{1.5}
+  \centering
+  \begin{tabular}{SS}
+    \toprule
+    {$r$ (\unit{\meter})} &  {$E$ (\unit{\kilo\newton\per\coulomb})}  \\
+    \midrule
+        0.201(8)   &          9.82(3)  \\
+        0.233(9)   &          7.04(3)  \\
+        0.262(9)   &          5.91(3)  \\
+        0.29(1)  &          4.72(3)  \\
+        0.32(1)  &          3.92(3)  \\
+        0.35(1)   &          3.59(3)  \\
+        0.38(1)  &          2.62(3)  \\
+        0.41(1)  &          2.60(3)  \\
+        0.44(1)  &          2.09(3)  \\
+        0.47(1)  &          2.27(3)  \\
+    \bottomrule
+  \end{tabular}
+  \caption{Grandeur du champ électrique produit par une particule ponctuelle
+  chargée, $E$, à différentes distances de la particule, $r$.}
+  \label{tab:data_er2}
+\end{table}
+
+
+\section*{Présentation des graphiques}
+
+Un graphique doit présenter les données de façon claire, concise et complète. Un
+bon graphique maximise la quantité d'information fournie en minimisant l'encre
+utilisée. Les axes doivent être clairement identifiés, les unités et les
+incertitudes doivent être présentes. Les droites extrêmes doivent être
+présentes. La légende accompagnant le graphique doit décrire son contenu
+suffisamment clairement pour qu'un lecteur comprenne la nature des données qui y
+sont présentées et la relation qu'on tente de mettre en évidence. Les graphiques
+doivent être numérotés pour pouvoir y faire facilement référence dans le texte.
+
+Si on reprend l'exemple de la section précédente, la figure \ref{fig:bon_er2},
+montre la relation entre la grandeur du champ électrique et l'inverse du carré
+de la distance. Théoriquement, cette relation devrait être linéaire et c'est
+bien ce que semble montrer le graphique.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\textwidth]{exemple_bon_graphique_er2.pdf}
+  \caption{Grandeur du champ électrique d'une particule ponctuelle chargée. La
+  relation linéaire entre la grandeur du champ électrique et l'inverse du carré
+  de la distance est cohérente avec l'expression théorique du champ électrique
+  produit par une charge ponctuelle (équation \ref{eq:champ_ponctuel}).}
+  \label{fig:bon_er2}
+\end{figure}
+
+
+\printbibliography
+
+
+\end{document}
+
+
+

@@ -1,12 +1,4 @@
+# This is Git's per-user configuration file.
 [user]
-    email = lsc@loicseguin.com
-    name = Loïc Séguin-C.
-[alias]
-    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)[%an]%Creset' --abbrev-commit --date=relative
-    co = checkout
-[core]
-    editor = nvim
-[color]
-    ui = true
-[init]
-	defaultBranch = main
+	name = Loïc Séguin-Charbonneau
+	email = lsc@loicseguin.com
