@@ -5,7 +5,7 @@ filetype plugin indent on
 syntax enable
 
 " vim package management {{{
-packadd! gruvbox-material
+"packadd! gruvbox-material
 set rtp+=/opt/homebrew/opt/fzf
 " }}}
 
@@ -36,7 +36,7 @@ set showmatch                   " Highlight matching parentheses
 set wildmenu                    " Show command auto-completion matches in status line
 set wildmode=list:longest,full  " Command completion, list matches, then longest common part, then all.
 set wildignore=*.pyc,*.bak      " Ignore these patterns in filename completions
-set relativenumber              " Show relative line numbers
+" set relativenumber              " Show relative line numbers
 set number                      " Show line number of current line
 set laststatus=2                " Show status line
 set noshowmode                  " Don't show mode since it is in status line
@@ -46,9 +46,10 @@ set scrolloff=4                 " Keep context visible around cursor line
 " Colors
 set termguicolors
 set background=dark
-let g:gruvbox_material_better_performance = 1
-let g:gruvbox_material_foreground = 'mix'
-colorscheme gruvbox-material
+" let g:gruvbox_material_better_performance = 1
+" let g:gruvbox_material_foreground = 'mix'
+" colorscheme gruvbox-material
+colorscheme retrobox
 let g:lightline = {'colorscheme': 'seoul256'}
 
 " Show hidden characters
@@ -154,27 +155,4 @@ nnoremap <silent> <leader>gp :Git push<CR>
 " fzf
 nnoremap <leader>f :FZF<CR>
 
-" }}}
-
-" GnuPG Extensions{{{
-
-" Tell the GnuPG plugin to armor new files.
-let g:GPGPreferArmor=1
-
-" Tell the GnuPG plugin to sign new files.
-let g:GPGPreferSign=1
-
-augroup GnuPGExtra
-    " Set extra file options.
-    autocmd BufReadCmd,FileReadCmd *.\(gpg\|asc\|pgp\) call SetGPGOptions()
-    " Automatically close unmodified files after inactivity.
-    autocmd CursorHold *.\(gpg\|asc\|pgp\) quit
-augroup END
-
-function! SetGPGOptions()
-    set updatetime=60000   " Set updatetime to 1 minute.
-    set foldmethod=marker  " Fold at markers.
-    set foldclose=all      " Automatically close all folds.
-    set foldopen=insert    " Only open folds with insert commands.
-endfunction
 " }}}
